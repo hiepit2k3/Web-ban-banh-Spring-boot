@@ -1,0 +1,41 @@
+
+.buttonalert {
+    background-color: cadetblue;
+    color: whitesmoke;
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 7px;
+    padding: 15px 35px;
+    cursor: pointer;
+    white-space: nowrap;
+    margin: 10px;
+}
+.imgalert {
+    width: 200px;
+}
+.inputalert[type="text"] {
+    padding: 12px 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+#success {
+    background: green;
+}
+#error {
+    background: red;
+}
+#warning {
+    background: coral;
+}
+#info {
+    background: cornflowerblue;
+}
+#question {
+    background: grey;
+}
