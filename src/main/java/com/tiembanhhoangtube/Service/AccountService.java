@@ -17,7 +17,10 @@ public interface AccountService {
 
     Account login(String username, String password);
 
-    Account findByUsername(String username);
+
+    Account findByEmail(String email);
+
+    Optional<Account> findByUsername(String username);
 
     void flush();
 

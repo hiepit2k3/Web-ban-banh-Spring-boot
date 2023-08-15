@@ -14,7 +14,7 @@ public class accountDto {
     private String password;
     private String image;
     private String adress;
-    private Boolean role;
+    private String role;
     private MultipartFile imageFile;
     private String comfirmpassword;
     private String fullname;

@@ -47,6 +47,13 @@ public class OrderServideiml implements OrderService {
     }
 
     @Override
+    @Query("select a.fullname,b.amount,b.status,b.orderDate,p.cakeName,p.image,o.quantity from Order  b inner join Account a on b.account.accountId = a.accountId inner join Orderdetail o on b.orderId = o.order.orderId inner join Product p on o.product.productsId = p.productsId")
+    @Transactional
+    public List<Object[]> getOrder() {
+        return orderRepository.getOrder();
+    }
+
+    @Override
     @Deprecated
     public void deleteInBatch(Iterable<Order> entities) {
         orderRepository.deleteInBatch(entities);

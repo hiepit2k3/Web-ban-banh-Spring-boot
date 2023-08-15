@@ -3,6 +3,7 @@ package com.tiembanhhoangtube.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 @Table(name = "accounts")
 public class Account implements Serializable{
     @Id
@@ -32,5 +34,5 @@ public class Account implements Serializable{
     @Column(columnDefinition = "nvarchar(60)")
     private String adress;
     @Column
-    private Boolean role = false;
+    private String role;
 }

@@ -31,6 +31,13 @@ public class FileSystemStogareServideimpl implements StogareService {
     public FileSystemStogareServideimpl(StogareProprties properties){
         this.rootLocation = Paths.get(properties.getLocation());
     }
+//    public  void addImage(String image) throws StorageExeption{
+//        Path path = this.rootLocation.resolve(Paths.get(image)).normalize().toAbsolutePath();
+//        if(!path.equals(this.rootLocation.toAbsolutePath())){
+//            throw new StorageExeption("Can not save file");
+//        }
+//        try(InputStream inputStream = fi)
+//    }
     @Override
     public void store(MultipartFile file, String storedFilename) throws StorageExeption {
         try {

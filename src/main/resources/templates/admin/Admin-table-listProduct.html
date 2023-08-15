@@ -10,8 +10,8 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link th:href="@{~/admin/assets/img/favicon.png}" rel="icon">
-    <link th:href="@{~/admin/assets/img/apple-touch-icon.png}" rel="apple-touch-icon">
+    <link th:href="@{~/tainguyen/assets/img/favicon.png}" rel="icon">
+    <link th:href="@{~/tainguyen/assets/img/apple-touch-icon.png}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -19,18 +19,29 @@
             href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
             rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <!-- Vendor CSS Files -->
-    <link th:href="@{~/admin/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{~/admin/assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
-    <link th:href="@{~/admin/assets/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
-    <link th:href="@{~/admin/assets/vendor/quill/quill.snow.css}" rel="stylesheet">
-    <link th:href="@{~/admin/assets/vendor/quill/quill.bubble.css}" rel="stylesheet">
-    <link th:href="@{~/admin/assets/vendor/remixicon/remixicon.css}" rel="stylesheet">
-    <link th:href="@{~/admin/assets/vendor/simple-datatables/style.css}" rel="stylesheet">
+    <link th:href="@{~/tainguyen/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{~/tainguyen/assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
+    <link th:href="@{~/tainguyen/assets/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
+    <link th:href="@{~/tainguyen/assets/vendor/quill/quill.snow.css}" rel="stylesheet">
+    <link th:href="@{~/tainguyen/assets/vendor/quill/quill.bubble.css}" rel="stylesheet">
+    <link th:href="@{~/tainguyen/assets/vendor/remixicon/remixicon.css}" rel="stylesheet">
+    <link th:href="@{~/tainguyen/assets/vendor/simple-datatables/style.css}" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link th:href="@{~/admin/assets/css/style.css}" rel="stylesheet">
+    <link th:href="@{~/tainguyen/assets/css/style.css}" rel="stylesheet">
 
+    <style>
+        .toast-success {
+            background-color: #4CAF50 !important; /* Change this to your desired background color */
+            color: #ffffff !important; /* Change this to your desired text color */
+        }
+        .toast-error{
+            background-color: #FF5733 !important; /* Change this to your desired background color for error */
+            color: #ffffff !important; /* Change this to your desired text color */
+        }
+    </style>
 </head>
 
 <body>
@@ -220,7 +231,7 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" th:href="@{/admin/profile}">
+                        <a class="dropdown-item d-flex align-items-center" th:href="@{tainguyen}">
                             <i class="bi bi-person"></i>
                             <span>My Profile</span>
                         </a>
@@ -250,7 +261,7 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" th:href="@{/admin/logout}">
+                        <a class="dropdown-item d-flex align-items-center" th:href="@{tainguyen}">
                             <i class="bi bi-box-arrow-right"></i>
                             <span>Sign Out</span>
                         </a>
@@ -270,7 +281,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link " th:href="@{/admin/index}">
+            <a class="nav-link " th:href="@{~/admin/index}">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
@@ -283,13 +294,13 @@
             </a>
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a th:href="@{/admin/products/add}">
+                    <a th:href="@{~/admin/products/add}">
                         <i class="bi bi-circle"></i><span>Thêm Chính Sửa Thông Tin Sản Phẩm</span>
                     </a>
                 </li>
 
                 <li>
-                    <a th:href="@{/admin/customers/add}">
+                    <a th:href="@{~/admin/customers/add}">
                         <i class="bi bi-circle"></i><span>Thêm Chính Sửa Thông Tin Tài Khoản</span>
                     </a>
                 </li>
@@ -299,45 +310,45 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i
+                    class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a th:href="@{~/admin/products}">
+                        <i class="bi bi-circle"></i><span>Danh Sách Sản Phẩm</span>
+                    </a>
+                </li>
                 <li style="background-color: aliceblue;">
-                    <a th:href="@{/admin/products}">
-                        <i class="bi bi-circle"></i><span style="color: #4154f1">Danh Sách Sản Phẩm</span>
+                    <a th:href="@{~/admin/customers}">
+                        <i class="bi bi-circle"></i><span style="color: #4154f1">Danh Sách Tài Khoản</span>
                     </a>
                 </li>
                 <li>
-                    <a th:href="@{/admin/customers}">
-                        <i class="bi bi-circle"></i><span>Danh Sách Tài Khoản</span>
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{/admin/order}">
+                    <a th:href="@{tainguyen}">
                         <i class="bi bi-circle"></i><span>Danh Sách Đơn Hàng</span>
                     </a>
                 </li>
             </ul>
-        </li>
-
+        </li><!-- End Tables Nav -->
         <li class="nav-heading">Pages</li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" th:href="@{/admin/profile}">
+            <a class="nav-link collapsed" th:href="@{tainguyen}">
                 <i class="bi bi-person"></i>
                 <span>Profile</span>
             </a>
         </li><!-- End Profile Page Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" th:href="@{/admin/faq}">
+            <a class="nav-link collapsed" th:href="@{tainguyen}">
                 <i class="bi bi-question-circle"></i>
                 <span>F.A.Q</span>
             </a>
         </li><!-- End F.A.Q Page Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" th:href="@{/admin/contact}">
+            <a class="nav-link collapsed" th:href="@{tainguyen}">
                 <i class="bi bi-envelope"></i>
                 <span>Contact</span>
             </a>
@@ -358,7 +369,7 @@
         </li><!-- End Login Page Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" th:href="@{/admin/err/404}">
+            <a class="nav-link collapsed" th:href="@{tainguyen}">
                 <i class="bi bi-dash-circle"></i>
                 <span>Error 404</span>
             </a>
@@ -389,7 +400,7 @@
                     <div class="card-header">
                         <h5 class="card-title">List Product</h5>
                         <div class="float-right" style="float: right;margin-bottom: 10px;">
-                            <a th:href="@{/admin/products/add}" class="btn btn-primary">Thêm mới sản phẩm</a> <!-- Nút "Thêm mới sản phẩm" -->
+                            <a th:href="@{~/admin/products/add}" class="btn btn-primary">Thêm mới sản phẩm</a> <!-- Nút "Thêm mới sản phẩm" -->
                         </div>
                         <form action="" method="get">
                             <div class="form-inline">
@@ -430,11 +441,6 @@
                                         <td th:text="${product.description}"></td>
                                         <td>
                                             <div class="justify-content-between Right">
-                                                <a th:href="@{'/admin/products/edit/id=' +${product.productsId}}"
-                                                   class="btn btn-primary btn-sm">
-                                                    <i class="bi bi-pencil-square"></i>
-                                                    Edit
-                                                </a>
                                                 <a th:data-id="${product.productsId}" th:data-name="${product.cakeName}"
                                                    onclick="showComfirmDialog(this.getAttribute('data-id'),this.getAttribute('data-name'));"
                                                    class="btn btn-danger btn-sm" data-bs-target="#confirmModal">
@@ -451,10 +457,35 @@
                     </div>
 
                     <script>
-                        function showComfirmDialog(id,name){
+                        function showComfirmDialog(id, name) {
                             $('#productName').text(name);
-                            $('#yesOption').attr('href','/admin/products/delete/id='+id);
                             $('#confirmid').modal('show');
+                            // Thêm sự kiện click cho nút Yes
+                            $('#yesOption').on('click', function(event) {
+                                event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
+                                $('#confirmid').modal('hide');
+                                // Gọi API để xóa thông tin
+                                fetch('/admin/products/delete/id=' + id, {
+                                    method: 'DELETE'
+                                })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.success) {
+                                            // Nếu xóa thành công, hiển thị thông báo và sau 2 giây thực hiện load lại trang
+                                            toastr.success('Xóa thành công');
+                                            setTimeout(function() {
+                                                location.reload();
+                                            }, 2000);
+                                        } else {
+                                            // Nếu xóa không thành công, hiển thị thông báo lỗi
+                                            toastr.error('Xóa không thành công');
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Error deleting data:', error);
+                                        toastr.error('Đã xảy ra lỗi khi xóa');
+                                    });
+                            });
                         }
                     </script>
 
@@ -512,10 +543,6 @@
 <footer id="footer" class="footer">
 
     <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
         Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
     </div>
 </footer><!-- End Footer -->
@@ -524,18 +551,19 @@
         class="bi bi-arrow-up-short"></i></a>
 
 <!-- Vendor JS Files -->
-<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
-<script th:src="@{~/admin/assets/vendor/apexcharts/apexcharts.min.js}"></script>
-<script th:src="@{~/admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-<script th:src="@{~/admin/assets/vendor/chart.js/chart.umd.js}"></script>
-<script th:src="@{~/admin/assets/vendor/echarts/echarts.min.js}"></script>
-<script th:src="@{~/admin/assets/vendor/quill/quill.min.js}"></script>
-<script th:src="@{~/admin/assets/vendor/simple-datatables/simple-datatables.js}"></script>
-<script th:src="@{~/admin/assets/vendor/tinymce/tinymce.min.js}"></script>
-<script th:src="@{~/admin/assets/vendor/php-email-form/validate.js}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script th:src="@{~/tainguyen/assets/vendor/apexcharts/apexcharts.min.js}"></script>
+<script th:src="@{~/tainguyen/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{~/tainguyen/assets/vendor/chart.js/chart.umd.js}"></script>
+<script th:src="@{~/tainguyen/assets/vendor/echarts/echarts.min.js}"></script>
+<script th:src="@{~/tainguyen/assets/vendor/quill/quill.min.js}"></script>
+<script th:src="@{~/tainguyen/assets/vendor/simple-datatables/simple-datatables.js}"></script>
+<script th:src="@{~/tainguyen/assets/vendor/tinymce/tinymce.min.js}"></script>
+<script th:src="@{~/tainguyen/assets/vendor/php-email-form/validate.js}"></script>
 
 <!-- Template Main JS File -->
-<script th:src="@{/admin/assets/js/main.js}"></script>
+<script th:src="@{~/tainguyen/assets/js/main.js}"></script>
 
 </body>
 

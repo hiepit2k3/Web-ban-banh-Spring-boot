@@ -52,30 +52,30 @@ public class OrderController {
     @Autowired
     CartitemRepository cartitemRepository;
 
-    @PostMapping("addorder")
-    public ModelAndView processFormData(ModelMap model, @RequestBody List<orderDto> orders, BindingResult result) {
-        System.out.println("CartItem: " + orders);
-        String name = (String) session.getAttribute("username");
-        Account account = accountService.findByUsername(name);
-        Order order = new Order();
-        Date orderdate = new Date();
-        order.setOrderDate(orderdate);
-        order.setAccount(account);
-        order.setAmount(orders.get(0).getAmount());
-        orderRepository.save(order);
-        for (orderDto o : orders) {
-            Orderdetail orderdetail = new Orderdetail();
-            Optional<Product> product = productService.findById(o.getProductId());
-            orderdetail.setProduct(product.get());
-            orderdetail.setQuantity(o.getQuantity());
-            orderdetail.setUnitPrice(o.getPrice());
-            orderdetail.setOrder(order);
-            ordertailRepository.save(orderdetail);
-            cartitemRepository.deleteById(o.getCartitemId());
-            System.out.println("xóa");
-        }
-        return new ModelAndView("redirect:/cuahangbanbanh/shoppingcart", model);
-    }
+//    @PostMapping("addorder")
+//    public ModelAndView processFormData(ModelMap model, @RequestBody List<orderDto> orders, BindingResult result) {
+//        System.out.println("CartItem: " + orders);
+//        String name = (String) session.getAttribute("username");
+//        Account account = accountService.findByUsername(name);
+//        Order order = new Order();
+//        Date orderdate = new Date();
+//        order.setOrderDate(orderdate);
+//        order.setAccount(account);
+//        order.setAmount(orders.get(0).getAmount());
+//        orderRepository.save(order);
+//        for (orderDto o : orders) {
+//            Orderdetail orderdetail = new Orderdetail();
+//            Optional<Product> product = productService.findById(o.getProductId());
+//            orderdetail.setProduct(product.get());
+//            orderdetail.setQuantity(o.getQuantity());
+//            orderdetail.setUnitPrice(o.getPrice());
+//            orderdetail.setOrder(order);
+//            ordertailRepository.save(orderdetail);
+//            cartitemRepository.deleteById(o.getCartitemId());
+//            System.out.println("xóa");
+//        }
+//        return new ModelAndView("redirect:/cuahangbanbanh/shoppingcart", model);
+//    }
 //    @PostMapping("addorder")
 //    public ModelAndView addOrder(@RequestBody List<orderDto> dto) {
 //        System.out.println("Oder:" + dto);

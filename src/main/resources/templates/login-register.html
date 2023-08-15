@@ -1,165 +1,221 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login or Register</title>
-  <!-- CUSTOM CSS -->
-  <link rel="stylesheet" href="/assets/css/style-login.css" />
-  <!-- FONT AWESOME -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-  />
-  <!-- GOOGLE FONTS -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login or Register</title>
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" th:href="@{~/assets/css/style-login.css}"/>
+    <!-- FONT AWESOME -->
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">-->
+    <link rel="stylesheet" href="../static/tainguyen/assets/js/toart/build/toastr.min.css">
+    <style>
+        .toast-success {
+            background-color: #4CAF50 !important; /* Change this to your desired background color */
+            color: #ffffff !important; /* Change this to your desired text color */
+        }
+    </style>
 </head>
 
 <body>
-  <div class="container">
+<div class="container">
     <div class="forms-container">
-      <div class="signin-signup">
-        <div th:if="${messageerror}" class="error-message">
-          <span th:text="${messageerror}"></span>
+        <div class="signin-signup">
+            <div th:if="${messageerror}" class="error-message">
+                <span th:text="${messageerror}"></span>
+            </div>
+            <form id="login" th:action="@{/login}" method="post" class="sign-in-form">
+                <h2 class="title">Login</h2>
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input id="username"
+                           type="text"
+                           name="username"
+                           autocomplete="username"
+                           placeholder="Username"
+                           required="yes"
+                    />
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input id="password"
+                           type="password"
+                           name="password"
+                           autocomplete="current-password"
+                           placeholder="Password"
+                           required="yes"
+                    />
+                    <i
+                            class="far fa-eye"
+                            id="togglePassword"
+                            style="cursor: pointer"
+                    ></i>
+                </div>
+
+                <button class="btn solid">Login</button>
+
+                <div class="social-media">
+                    <a class="icon-mode"  th:href="@{~/oauth2/authorization/google}"
+                    ><i class="fab fa-google"></i></a>
+                    <a class="icon-mode" th:href="@{~/oauth2/authorization/facebook}"
+                    ><i class="fab fa-facebook"></i></a>
+                </div>
+            </form>
+            <form id="dangki" class="sign-up-form">
+                <h2 class="title">Register</h2>
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input id="username1"
+                           type="text"
+                           name="username"
+                           autocomplete="username"
+                           placeholder="Username"
+                           required="yes"
+                    />
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-envelope"></i>
+                    <input
+                            id="email1"
+                            type="email"
+                            name="email"
+                            autocomplete="email"
+                            placeholder="Email"
+                            required="yes"
+                    />
+                </div>
+
+                <div class="input-field">
+                    <i class="fas fa-envelope"></i>
+                    <input
+                            id="fullname1"
+                            type="text"
+                            name="fullname"
+                            placeholder="Full Name"
+                            required="yes"
+                    />
+                </div>
+
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input
+                            id="password1"
+                            type="password"
+                            name="password"
+                            autocomplete="current-password"
+                            placeholder="Password"
+                            required="yes"
+                    />
+                    <i class="far fa-eye" style="cursor: pointer"></i>
+                </div>
+
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input
+                            id="password1confirm"
+                            type="password"
+                            name="comfirmpassword"
+                            autocomplete="current-password"
+                            placeholder="Confirm Password"
+                            required="yes"
+                    />
+                    <i class="far fa-eye" style="cursor: pointer"></i>
+                </div>
+
+                <label class="check">
+                    <input type="checkbox" checked="checked"/>
+                    <span class="checkmark"
+                    >I accept the <a href="terms.html">terms and services</a></span
+                    >
+                </label>
+                <button type="submit" class="btn solid">REGISTER</button>
+            </form>
         </div>
-        <form th:action="@{/account/login}" method="post" class="sign-in-form">
-          <h2 class="title">Login</h2>
-          <div class="input-field">
-            <i class="fas fa-user"></i>
-            <input
-              type="text"
-              name="username"
-              autocomplete="username"
-              placeholder="Username"
-              required="yes"
-            />
-          </div>
-          <div class="input-field">
-            <i class="fas fa-lock"></i>
-            <input
-              type="password"
-              name="password"
-              autocomplete="current-password"
-              placeholder="Password"
-              id="id_password"
-              required="yes"
-            />
-            <i
-              class="far fa-eye"
-              id="togglePassword"
-              style="cursor: pointer"
-            ></i>
-          </div>
-
-          <button class="btn solid">Login</button>
-
-          <div class="social-media">
-            <a class="icon-mode" onclick="toggleTheme('dark');"
-              ><i class="fas fa-moon"></i
-            ></a>
-            <a class="icon-mode" onclick="toggleTheme('light');"
-              ><i class="fas fa-sun"></i
-            ></a>
-          </div>
-          <p class="text-mode">Change theme</p>
-        </form>
-        <form th:action="@{/account/register}" method="post" class="sign-up-form">
-          <h2 class="title">Register</h2>
-          <div class="input-field">
-            <i class="fas fa-user"></i>
-            <input
-              type="text"
-              name="username"
-              autocomplete="username"
-              placeholder="Username"
-              required="yes"
-            />
-          </div>
-          <div class="input-field">
-            <i class="fas fa-envelope"></i>
-            <input
-              type="email"
-              name="email"
-              autocomplete="email"
-              placeholder="Email"
-              required="yes"
-            />
-          </div>
-
-          <div class="input-field">
-            <i class="fas fa-envelope"></i>
-            <input
-                    type="text"
-                    name="fullname"
-
-                    placeholder="Full Name"
-                    required="yes"
-            />
-          </div>
-
-          <div class="input-field">
-            <i class="fas fa-lock"></i>
-            <input
-              type="password"
-              name="password"
-              autocomplete="current-password"
-              placeholder="Password"
-              id="id_reg"
-              required="yes"
-            />
-            <i class="far fa-eye"  style="cursor: pointer"></i>
-          </div>
-
-          <div class="input-field">
-            <i class="fas fa-lock"></i>
-            <input
-                    type="password"
-                    name="comfirmpassword"
-                    autocomplete="current-password"
-                    placeholder="Password"
-
-                    required="yes"
-            />
-            <i class="far fa-eye"  style="cursor: pointer"></i>
-          </div>
-
-          <label class="check">
-            <input type="checkbox" checked="checked" />
-            <span class="checkmark"
-              >I accept the <a href="terms.html">terms and services</a></span
-            >
-          </label>
-          <button value="Create account" class="btn solid">REGISTER</button>
-        </form>
-      </div>
     </div>
     <div class="panels-container">
-      <div class="panel left-panel">
-        <div class="content">
-          <h3>You don't have an account?</h3>
-          <p>
-            Create your account right now to follow people and like publications
-          </p>
-          <button class="btn transparent" id="sign-up-btn">Register</button>
+        <div class="panel left-panel">
+            <div class="content">
+                <h3>You don't have an account?</h3>
+                <p>
+                    Create your account right now to follow people and like publications
+                </p>
+                <button class="btn transparent" id="sign-up-btn">Register</button>
+            </div>
         </div>
-      </div>
 
-      <div class="panel right-panel">
-        <div class="content">
-          <h3>Already have an account?</h3>
-          <p>Login to see your notifications and post your favorite photos</p>
-          <button class="btn transparent" id="sign-in-btn">Sign in</button>
+        <div class="panel right-panel">
+            <div class="content">
+                <h3>Already have an account?</h3>
+                <p>Login to see your notifications and post your favorite photos</p>
+                <button class="btn transparent" id="sign-in-btn">Sign in</button>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>-->
+<script src="../static/tainguyen/assets/js/toart/build/toastr.min.js"></script>
+<script th:src="@{~/assets/js/login.js}"></script>
+<script>
+    document.getElementById('dangki').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const username = document.getElementById('username1').value;
+        const email = document.getElementById('email1').value;
+        const fullName = document.getElementById('fullname1').value;
+        const password = document.getElementById('password1').value;
+        const confirmPassword = document.getElementById('password1confirm').value;
 
-  <script th:src="@{~/assets/js/login.js}"></script>
+        if (password !== confirmPassword) {
+            toastr.error("Mật khẩu xác nhận không giống nhau vui lòng nhập lại!", "Error");
+            return;
+        }
+
+        const API = 'http://localhost:8080/authentication/register'
+        const userData = {
+            username: username,
+            password: password,
+            email: email,
+            fullname: fullName
+        };
+
+        fetch(API, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+        })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data); // Hiển thị phản hồi từ máy chủ
+                if (data === "Successful account registration") {
+                    toastr.success("Đăng kí tài khoản thành công", "Thành Công");
+                    resetForm(); // Gọi hàm để reset biểu mẫu
+                } else {
+                    toastr.error(data, "Error");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                toastr.error("Đăng kí tài khoản thất bại", "Thất Bại");
+            });
+    });
+
+    function resetForm() {
+        document.getElementById('username1').value = '';
+        document.getElementById('email1').value = '';
+        document.getElementById('fullname1').value = '';
+        document.getElementById('password1').value = '';
+        document.getElementById('password1confirm').value = '';
+    }
+</script>
 </body>
 
 </html>

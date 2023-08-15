@@ -22,6 +22,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -44,39 +45,31 @@ public class ProductController {
     AccountService accountService;
     @GetMapping("add")
     public String add(Model model) {
-        String username = (String) session.getAttribute("username");
-        Account account = accountService.findByUsername(username);
-        if(!AuthenticationUtils.isUserLoggedIn(session)){
-            return "redirect:/account/loginandregister";
-        }
-        if(account.getRole() == false){
-            return "redirect:/account/loginandregister";
-        }
         model.addAttribute("product", new ProductDto());
         return "admin/Admin-form-AddProduct";
     }
 
 
-    @PostMapping("/AddOrEdit")
-    public ModelAndView saveOrUpdate(ModelMap model, @Valid @ModelAttribute("product") ProductDto dto, BindingResult result) {
-        if (result.hasErrors()) {
-            System.out.println("Loi: " + result.toString());
-            return new ModelAndView("admin/Admin-form-AddProduct");
-        }
+    @PostMapping("product/AddOrEdit")
+    public ResponseEntity<?> saveOrUpdate( @RequestBody ProductDto dto, BindingResult result) {
+        System.out.println("Data từ client gửi về: " + dto);
+        MultipartFile img = dto.getImageFile();
         Product entity = new Product();
         BeanUtils.copyProperties(dto, entity);
 
-        if (!dto.getImageFile().isEmpty()) {
+        if (dto.getImageFile() != null && !dto.getImageFile().isEmpty()) {
             UUID uuid = UUID.randomUUID();
             String uuidString = uuid.toString();
             System.out.println("Tên File: " + uuidString);
+
+            // Lưu tên tệp hoặc đường dẫn vào entity hoặc thực hiện thao tác cần thiết
             entity.setImage(stogareService.getStogaredFilename(dto.getImageFile(), uuidString));
             stogareService.store(dto.getImageFile(), entity.getImage());
         }
+
         productService.save(entity);
-        System.out.println("Tện file sau khi chuyển đổi: " + entity.getImage());
-        model.addAttribute("message", "Products is Saved!");
-        return new ModelAndView("redirect:/admin/products", model);
+        System.out.println("Tên file sau khi chuyển đổi: " + entity.getImage());
+        return ResponseEntity.ok("Thêm sản phẩm thành công");
     }
 
 
@@ -96,7 +89,7 @@ public class ProductController {
         return new ModelAndView("forward:/admin/products", model);
     }
 
-    @GetMapping("/images/{filename:.+}")
+    @RequestMapping("/images/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
         System.out.println("--------------------------------------------------------------------------------- -" + filename);

@@ -13,4 +13,8 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
     @Query("SELECT o,od,p,c FROM Order o JOIN Orderdetail od on o.orderId =  od.orderdetailId JOIN  Product p on od.product.productsId = p.productsId JOIN Account c \n" +
             "on o.account.accountId = c.accountId")
     List<Object[]> getOrdersWithDetailsAndProducts();
+
+    @Transactional
+    @Query("select a,b,o,p from Order  b inner join Account a on b.account.accountId = a.accountId inner join Orderdetail o on b.orderId = o.order.orderId inner join Product p on o.product.productsId = p.productsId")
+    List<Object[]> getOrder();
 }

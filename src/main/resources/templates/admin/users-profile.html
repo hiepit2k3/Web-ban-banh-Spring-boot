@@ -219,7 +219,7 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" th:href="@{/admin/profile}">
+                        <a class="dropdown-item d-flex align-items-center" th:href="@{tainguyen}">
                             <i class="bi bi-person"></i>
                             <span>My Profile</span>
                         </a>
@@ -249,7 +249,7 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" th:href="@{/admin/logout}">
+                        <a class="dropdown-item d-flex align-items-center" th:href="@{tainguyen}">
                             <i class="bi bi-box-arrow-right"></i>
                             <span>Sign Out</span>
                         </a>
@@ -269,7 +269,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link " th:href="@{/admin/index}">
+            <a class="nav-link " th:href="@{tainguyen}">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
@@ -282,13 +282,13 @@
             </a>
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a th:href="@{/admin/products/add}">
+                    <a th:href="@{tainguyen}">
                         <i class="bi bi-circle"></i><span>Thêm Chính Sửa Thông Tin Sản Phẩm</span>
                     </a>
                 </li>
 
                 <li>
-                    <a th:href="@{/admin/customers/add}">
+                    <a th:href="@{tainguyen}">
                         <i class="bi bi-circle"></i><span>Thêm Chính Sửa Thông Tin Tài Khoản</span>
                     </a>
                 </li>
@@ -303,17 +303,17 @@
             </a>
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a th:href="@{/admin/products}">
+                    <a th:href="@{tainguyen}">
                         <i class="bi bi-circle"></i><span>Danh Sách Sản Phẩm</span>
                     </a>
                 </li>
                 <li>
-                    <a th:href="@{/admin/customers}">
+                    <a th:href="@{tainguyen}">
                         <i class="bi bi-circle"></i><span>Danh Sách Tài Khoản</span>
                     </a>
                 </li>
                 <li>
-                    <a th:href="@{/admin/order}">
+                    <a th:href="@{tainguyen}">
                         <i class="bi bi-circle"></i><span>Danh Sách Đơn Hàng</span>
                     </a>
                 </li>
@@ -322,21 +322,21 @@
         <li class="nav-heading">Pages</li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" th:href="@{/admin/profile}">
+            <a class="nav-link collapsed" th:href="@{tainguyen}">
                 <i class="bi bi-person"></i>
                 <span>Profile</span>
             </a>
         </li><!-- End Profile Page Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" th:href="@{/admin/faq}">
+            <a class="nav-link collapsed" th:href="@{tainguyen}">
                 <i class="bi bi-question-circle"></i>
                 <span>F.A.Q</span>
             </a>
         </li><!-- End F.A.Q Page Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" th:href="@{/admin/contact}">
+            <a class="nav-link collapsed" th:href="@{tainguyen}">
                 <i class="bi bi-envelope"></i>
                 <span>Contact</span>
             </a>
@@ -357,7 +357,7 @@
         </li><!-- End Login Page Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" th:href="@{/admin/err/404}">
+            <a class="nav-link collapsed" th:href="@{tainguyen}">
                 <i class="bi bi-dash-circle"></i>
                 <span>Error 404</span>
             </a>
@@ -476,7 +476,7 @@
                             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                                 <!-- Profile Edit Form -->
-                                <form id="myForm" th:action="@{/admin/customers/AddOrEdit}" method="post"
+                                <form id="myForm" th:action="@{tainguyen}" method="post"
                                       enctype="multipart/form-data" th:object="${account}">
                                     <div class="row mb-3">
                                         <label th:for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile
@@ -586,7 +586,7 @@
 
                             <div class="tab-pane fade pt-3" id="profile-change-password">
                                 <!-- Change Password Form -->
-                                <form id="myFormPassword" th:action="@{/admin/customers/update}" method="post" th:object="${account}">
+                                <form id="myFormPassword" th:action="@{tainguyen}" method="post" th:object="${account}">
 
                                     <div class="row mb-3">
                                         <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current
@@ -671,7 +671,7 @@
 <script th:src="@{~/admin/assets/vendor/php-email-form/validate.js}"></script>
 
 <!-- Template Main JS File -->
-<script th:src="@{/admin/assets/js/main.js}"></script>
+<script th:src="@{tainguyen}"></script>
 
 <script>
     function displayImage() {

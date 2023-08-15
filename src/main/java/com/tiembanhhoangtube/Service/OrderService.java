@@ -25,6 +25,10 @@ public interface OrderService{
     @Transactional
     List<Object[]> getOrdersWithDetailsAndProducts();
 
+    @Query("select a.fullname,b.amount,b.status,b.orderDate,p.cakeName,p.image,o.quantity from Order  b inner join Account a on b.account.accountId = a.accountId inner join Orderdetail o on b.orderId = o.order.orderId inner join Product p on o.product.productsId = p.productsId")
+    @Transactional
+    List<Object[]> getOrder();
+
     @Deprecated
     void deleteInBatch(Iterable<Order> entities);
 

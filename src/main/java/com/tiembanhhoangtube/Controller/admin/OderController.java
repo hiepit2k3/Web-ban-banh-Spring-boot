@@ -36,18 +36,11 @@ public class OderController {
     AccountService accountService;
 
     @GetMapping("order")
-    public String oder(Model model) {
-        String username = (String) session.getAttribute("username");
-        Account account = accountService.findByUsername(username);
-        if(!AuthenticationUtils.isUserLoggedIn(session)){
-            return "redirect:/account/loginandregister";
-        }
-        if(account.getRole() == false){
-            return "redirect:/account/loginandregister";
-        }
-
-        model.addAttribute("orders", orderService.getOrdersWithDetailsAndProducts());
-        return "admin/Admin-Oder";
+    public ModelAndView oder(ModelMap model) {
+        System.out.println("chay Get Oder");
+        model.addAttribute("orders", orderService.getOrder());
+        System.out.println("data:"+orderService.getOrder());
+        return new ModelAndView("admin/Admin-Oder",model);
     }
 
     @GetMapping("/images/{filename:.+}")

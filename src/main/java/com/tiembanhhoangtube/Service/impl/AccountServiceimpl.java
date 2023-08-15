@@ -36,22 +36,27 @@ public class AccountServiceimpl implements AccountService {
 
     @Override
     public Account login(String username, String password){
-        Account account = findByUsername(username);
-        if (account != null) {
-            if (bCryptPasswordEncoder.matches(password, account.getPassword())) {
-                System.out.println("Mật khẩu trùng khớp");
-                return account;
-            } else {
-                System.out.println("Mật khẩu không trùng khớp");
-            }
-        } else {
-            System.out.println("Tên đăng nhập không tồn tại");
-        }
+//        Account account = findByUsername(username);
+//        if (account != null) {
+//            if (bCryptPasswordEncoder.matches(password, account.getPassword())) {
+//                System.out.println("Mật khẩu trùng khớp");
+//                return account;
+//            } else {
+//                System.out.println("Mật khẩu không trùng khớp");
+//            }
+//        } else {
+//            System.out.println("Tên đăng nhập không tồn tại");
+//        }
         return null;
     }
 
     @Override
-    public Account findByUsername(String username) {
+    public Account findByEmail(String email) {
+        return accountRepository.findByEmail(email);
+    }
+
+    @Override
+    public Optional<Account> findByUsername(String username) {
         return accountRepository.findByUsername(username);
     }
 
@@ -117,19 +122,38 @@ public class AccountServiceimpl implements AccountService {
 
     @Override
     public <S extends Account> S save(S entity) {
-
-        Account account = findByUsername(entity.getUsername());
-        System.out.println("account csdl:"+account);
-        System.out.println("account entity:"+entity);
-        if(account != null) {
-            if(account.getPassword().equals(entity.getPassword())){
+        Account account = findByEmail(entity.getEmail());
+        if(account != null){
+            if(entity.getPassword().equals("") || entity.getPassword().equals(account.getPassword())){
+                System.out.println("mật khẩu cũ:"+account.getPassword());
                 entity.setPassword(account.getPassword());
+                if(entity.getImage() == null){
+                    entity.setImage(account.getImage());
+                }
                 return accountRepository.save(entity);
             }
+            else if(entity.getImage() == null){
+                entity.setImage(account.getImage());
+            }
+            entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
+            return accountRepository.save(entity);
         }
         entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
         return accountRepository.save(entity);
     }
+
+    public Account AuthenGoogle(Account entity){
+        Account account = findByEmail(entity.getEmail());
+        if(account != null){
+            return account;
+        }
+        entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
+        return save(entity);
+    }
+
+//    public Account UpdateInformation(Account entity){
+//
+//    }
 
     @Override
     public Optional<Account> findById(Long aLong) {

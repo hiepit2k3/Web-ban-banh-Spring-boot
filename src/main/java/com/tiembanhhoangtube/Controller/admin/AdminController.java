@@ -25,29 +25,26 @@ public class AdminController {
 
     @GetMapping("index")
     public String index() {
-        String username = (String) session.getAttribute("username");
-        Account account = accountService.findByUsername(username);
-        if(!AuthenticationUtils.isUserLoggedIn(session)){
-            return "redirect:/account/loginandregister";
-        }
-        if(account.getRole() == false){
-            return "redirect:/account/loginandregister";
-        }
         return "admin/index";
     }
-    @GetMapping("logout")
-    public ModelAndView logout(ModelMap model){
-        session.removeAttribute("username");
-        return new ModelAndView("redirect:/account/loginandregister");
+
+    @GetMapping("form/edit/product")
+    public String editFormProduct() {
+        return "admin/Admin-form-AddProduct";
     }
 
-    @GetMapping("profile")
-    public ModelAndView getProfile(ModelMap model){
-        String username = (String) session.getAttribute("username");
-        Account account = accountService.findByUsername(username);
-        model.addAttribute("account", account);
-        return new ModelAndView("admin/users-profile",model);
+    @GetMapping("form/edit/account")
+    public String addAccount(ModelMap modelMap) {
+
+        return "admin/Admin-account";
     }
+//    @GetMapping("profile")
+//    public ModelAndView getProfile(ModelMap model){
+//        String username = (String) session.getAttribute("username");
+//        Account account = accountService.findByUsername(username);
+//        model.addAttribute("account", account);
+//        return new ModelAndView("admin/users-profile",model);
+//    }
     @GetMapping("contact")
     public ModelAndView getContact(ModelMap model){
         return new ModelAndView("admin/pages-contact");

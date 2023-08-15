@@ -1,5 +1,6 @@
 package com.tiembanhhoangtube.model;
 
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ public class ProductDto {
     private int quantity;
     private double price;
     private String image;
+    @Transient
     private MultipartFile imageFile;
     private Boolean isEdit = false;
 }

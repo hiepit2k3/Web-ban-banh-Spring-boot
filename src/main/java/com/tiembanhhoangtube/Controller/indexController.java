@@ -62,22 +62,15 @@ public class indexController {
         return new ModelAndView("index", model);
     }
 
-    @GetMapping("profile")
-    public ModelAndView getProfile(ModelMap model){
-        String username = (String) session.getAttribute("username");
-        if(username == null){
-            return new ModelAndView("redirect:/account/loginandregister",model);
-        }
-        Account account = accountService.findByUsername(username);
-        model.addAttribute("account", account);
-        return new ModelAndView("profile", model);
-
-    }
-
-    @GetMapping("logout")
-    public ModelAndView logout() {
-        System.out.println("đang xuất");
-        session.removeAttribute("username");
-        return new ModelAndView("redirect:/account/loginandregister");
-    }
+//    @GetMapping("profile")
+//    public ModelAndView getProfile(ModelMap model){
+//        String username = (String) session.getAttribute("username");
+//        if(username == null){
+//            return new ModelAndView("redirect:/account/loginandregister",model);
+//        }
+//        Account account = accountService.findByUsername(username);
+//        model.addAttribute("account", account);
+//        return new ModelAndView("profile", model);
+//
+//    }
 }
