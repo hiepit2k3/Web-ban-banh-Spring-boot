@@ -397,22 +397,16 @@
                                 fetch('/admin/products/delete/id=' + id, {
                                     method: 'DELETE'
                                 })
-                                    .then(response => response.json())
-                                    .then(data => {
-                                        if (data.success) {
+                                    .then(response =>{
+                                        if (response.status === 200) {
                                             // Nếu xóa thành công, hiển thị thông báo và sau 2 giây thực hiện load lại trang
                                             toastr.success('Xóa thành công');
                                             setTimeout(function() {
                                                 location.reload();
                                             }, 2000);
                                         } else {
-                                            // Nếu xóa không thành công, hiển thị thông báo lỗi
                                             toastr.error('Xóa không thành công');
                                         }
-                                    })
-                                    .catch(error => {
-                                        console.error('Error deleting data:', error);
-                                        toastr.error('Đã xảy ra lỗi khi xóa');
                                     });
                             });
                         }

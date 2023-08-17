@@ -92,22 +92,9 @@ public class ProductController {
     @RequestMapping("/images/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
-        System.out.println("--------------------------------------------------------------------------------- -" + filename);
         Resource file = stogareService.loadAsResource(filename);
         System.out.println("fiole anh: " + file);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
-    }
-
-    @GetMapping("/delete/id={productId}")
-    public ModelAndView delete(ModelMap model, @PathVariable("productId") Long productId) throws Exception {
-        Optional<Product> otp = productService.findById(productId);
-        if (otp.isPresent()) {
-            if (!StringUtils.isEmpty(otp.get().getImage())) {
-                stogareService.delete(otp.get().getImage());
-            }
-        }
-        productService.delete(otp.get());
-        return new ModelAndView("forward:/admin/products");
     }
 
     @GetMapping("")

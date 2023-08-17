@@ -62,7 +62,7 @@
                         </form>
                         <a th:href="@{/cuahangbanbanh/shoppingcart}" class="header-btn header-cart">
                             <i class="uil uil-shopping-bag"></i>
-                            <span th:text="${session.quantity}" class="cart-number"></span>
+                            <span text="" id="sl" class="cart-number"></span>
                         </a>
                         <div class="header-btn">
                             <div id="main-wrapper">
@@ -70,44 +70,30 @@
                                     <div id="main-top-bar">
                                         <div class="user-menu">
                                             <div class="user-menu-item">
-                                                <a href="#">
+                                                <a href="javascript:void(0)"  >
                                                     <i class="uil uil-user-md"></i>
                                                 </a>
 
                                                 <div class="user-dropdown">
-                                                    <a th:href="@{~/tiembanhhoangtube/index}" class="dropdown-item"
-                                                    ><span class="mr-3"
-                                                    ><i class="fa fa-home"></i
-                                                    ></span>
-                                                        Home</a
-                                                    >
-                                                    <a th:href="@{/tiembanhhoangtube/profile}" class="dropdown-item"
-                                                    ><span class="mr-3"
-                                                    ><i class="fa fa-address-book"></i
-                                                    ></span>
-                                                        Profile</a
-                                                    >
+                                                    <a th:href="@{~/tiembanhhoangtube/index}" class="dropdown-item">
+                                                        <span class="mr-3"><i class="fa fa-home"></i></span> Home
+                                                    </a>
+                                                    <a th:href="@{/user/profile}" class="dropdown-item">
+                                                        <span class="mr-3"><i class="fa fa-address-book"></i></span> Profile
+                                                    </a>
 
-                                                    <a th:if="${session['username'] != null}"
-                                                       th:href="@{/tiembanhhoangtube/logout}" href="/logout"
-                                                       class="dropdown-item"
-                                                    ><span class="mr-3"
-                                                    ><i class="fa fa-power-off"></i
-                                                    ></span>
-                                                        Logout</a
-                                                    >
+                                                    <!-- Kiểm tra cookie JSESSIONID tồn tại -->
+                                                    <a th:if="${session.containsKey('JSESSIONID')}" th:href="@{/logout}" class="dropdown-item">
+                                                        <span class="mr-3"><i class="fa fa-power-off"></i></span> Logout
+                                                    </a>
 
-                                                    <a th:if="${session['username'] == null}"
-                                                       th:href="@{/account/loginandregister}" class="dropdown-item">
-                                <span class="mr-3"
-                                ><i class="fa fa-user-md"></i></span
-                                >Login</a
-                                                    ><a th:if="${session['username'] == null}" class="dropdown-item"
-                                                        href="/register"
-                                                ><span class="mr-3"
-                                                ><i class="fa fa-user-plus"></i></span
-                                                >Register</a
-                                                >
+                                                    <!-- Kiểm tra cookie JSESSIONID không tồn tại -->
+                                                    <a th:unless="${session.containsKey('JSESSIONID')}" th:href="@{/api/login}" class="dropdown-item">
+                                                        <span class="mr-3"><i class="fa fa-user-md"></i></span> Login
+                                                    </a>
+                                                    <a th:unless="${session.containsKey('JSESSIONID')}" class="dropdown-item" href="/register">
+                                                        <span class="mr-3"><i class="fa fa-user-plus"></i></span> Register
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -512,6 +498,9 @@
 
             if (response.status === 200) {
                 toastr.success("Mật khẩu đã được thay đổi.", "Thành Công");
+                setTimeout(function () {
+                    location.reload();
+                }, 3000);
             } else {
                 toastr.error("Thay đổi mật khẩu thất bại.", "Lỗi");
             }
@@ -521,6 +510,21 @@
         }
 
     });
+
+    const API = 'http://localhost:8080/tiembanhhoangtube/slgiohang'
+
+    fetch(API).then(response => {
+
+        // Kiểm tra xem phản hồi có thành công không
+        if (!response.ok) {
+            throw new Error('Có lỗi khi truy vấn API');
+        }
+        // Chuyển đổi phản hồi sang định dạng JSON
+        return response.json();
+    }).then(data =>{
+        console.log(data);
+        document.getElementById('sl').innerText = data;
+    })
 
 </script>
 </html>

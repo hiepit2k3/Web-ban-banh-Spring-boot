@@ -35,7 +35,7 @@ public class AccountServiceimpl implements AccountService {
     }
 
     @Override
-    public Account login(String username, String password){
+    public Account login(String username, String password) {
 //        Account account = findByUsername(username);
 //        if (account != null) {
 //            if (bCryptPasswordEncoder.matches(password, account.getPassword())) {
@@ -123,27 +123,31 @@ public class AccountServiceimpl implements AccountService {
     @Override
     public <S extends Account> S save(S entity) {
         Optional<Account> account = findByUsername(entity.getUsername());
-        if(account.isPresent()){
-            if(entity.getPassword().equals("") || entity.getPassword().equals(account.get().getPassword())){
+        if (account.isPresent()) {
+            if (entity.getPassword() == null) {
                 entity.setPassword(account.get().getPassword());
-                if(entity.getImage() == null){
+                return accountRepository.save(entity);
+            } else {
+                if (entity.getPassword().equals("") || entity.getPassword().equals(account.get().getPassword())) {
+                    entity.setPassword(account.get().getPassword());
+                    if (entity.getImage() == null) {
+                        entity.setImage(account.get().getImage());
+                    }
+                    return accountRepository.save(entity);
+                } else if (entity.getImage() == null) {
                     entity.setImage(account.get().getImage());
                 }
+                entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
                 return accountRepository.save(entity);
             }
-            else if(entity.getImage() == null){
-                entity.setImage(account.get().getImage());
-            }
-            entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
-            return accountRepository.save(entity);
         }
         entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
         return accountRepository.save(entity);
     }
 
-    public Account AuthenGoogle(Account entity){
+    public Account AuthenGoogle(Account entity) {
         Account account = findByEmail(entity.getEmail());
-        if(account != null){
+        if (account != null) {
             return account;
         }
         entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));

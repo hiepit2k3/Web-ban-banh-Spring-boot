@@ -506,9 +506,8 @@
                         fetch('/admin/customers/delete/id=' + id, {
                             method: 'DELETE'
                         })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
+                            .then(response => {
+                                if (response.status === 200) {
                                     // Nếu xóa thành công, hiển thị thông báo và sau 2 giây thực hiện load lại trang
                                     toastr.success('Xóa thành công');
                                     setTimeout(function() {
@@ -519,10 +518,7 @@
                                     toastr.error('Xóa không thành công');
                                 }
                             })
-                            .catch(error => {
-                                console.error('Error deleting data:', error);
-                                toastr.error('Đã xảy ra lỗi khi xóa');
-                            });
+
                     });
                 }
 
@@ -600,7 +596,7 @@
         var API = "http://localhost:8080/admin/customers/edit/id=" + id;
         fetch(API)
             .then(response => {
-                if (!response.status === 200) {
+                if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 return response.json(); // Trả về promise để xử lý kết quả JSON
@@ -619,8 +615,6 @@
                     username: data.username
                 };
 
-                console.log(JSON.stringify(filteredData));
-                alert(JSON.stringify(filteredData));
                 // Điền dữ liệu vào các trường form
                 document.getElementById("accountId").value = filteredData.accountId;
                 document.getElementById("address").value = filteredData.address;
@@ -691,31 +685,31 @@
         await sendFormData("http://localhost:8080/admin/customers/update", "PUT", formData); // URL của API cập nhật
     });
 
-    // const apiUrl = 'http://localhost:8080/admin/customers/profile'
-    // fetch(apiUrl)
-    //     .then(response => {
-    //
-    //         // Kiểm tra xem phản hồi có thành công không
-    //         if (!response.ok) {
-    //             throw new Error('Có lỗi khi truy vấn API');
-    //         }
-    //         // Chuyển đổi phản hồi sang định dạng JSON
-    //         return response.json();
-    //     })
-    //     .then(data => {
-    //         // Ở đây bạn có thể làm gì đó với dữ liệu đã lấy được từ API
-    //         const dataprofile = {
-    //             image: data.image,
-    //             fullname: data.fullname
-    //         };
-    //         console.log(dataprofile.image);
-    //         document.getElementById("imgprofile").src = '/admin/products/images/' + dataprofile.image;
-    //         document.getElementById("fullname2").innerText = dataprofile.fullname;
-    //         document.getElementById("fullname1").innerText = dataprofile.fullname;
-    //     })
-    //     .catch(error => {
-    //         console.error('Lỗi:', error);
-    //     });
+    const apiUrl = 'http://localhost:8080/admin/customers/profile'
+    fetch(apiUrl)
+        .then(response => {
+
+            // Kiểm tra xem phản hồi có thành công không
+            if (!response.ok) {
+                throw new Error('Có lỗi khi truy vấn API');
+            }
+            // Chuyển đổi phản hồi sang định dạng JSON
+            return response.json();
+        })
+        .then(data => {
+            // Ở đây bạn có thể làm gì đó với dữ liệu đã lấy được từ API
+            const dataprofile = {
+                image: data.image,
+                fullname: data.fullname
+            };
+            console.log(dataprofile.image);
+            document.getElementById("imgprofile").src = '/admin/products/images/' + dataprofile.image;
+            document.getElementById("fullname2").innerText = dataprofile.fullname;
+            document.getElementById("fullname1").innerText = dataprofile.fullname;
+        })
+        .catch(error => {
+            console.error('Lỗi:', error);
+        });
 
 </script>
 </body>

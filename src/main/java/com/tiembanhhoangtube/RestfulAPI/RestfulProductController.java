@@ -50,26 +50,16 @@ public class RestfulProductController {
     }
 
     @DeleteMapping("/delete/id={productsId}")
-    public ResponseEntity<?> deleteCustomer(@PathVariable("productsId") Long productsId) {
-        Map<String, String> response = new HashMap<>();
-
-        try {
-            Product product = productService.findByproducId(productsId);
-            if (product != null) {
-                if (!StringUtils.isEmpty(product.getImage())) {
-                    stogareService.delete(product.getImage());
-                }
-            } else {
-                response.put("success", "false");
-                return ResponseEntity.badRequest().body(response);
+    public ResponseEntity<?> deleteCustomer(@PathVariable("productsId") Long productsId) throws Exception {
+        Product product = productService.findByproducId(productsId);
+        if (product != null) {
+            if (StringUtils.isEmpty(product.getImage())) {
+                stogareService.delete(product.getImage());
             }
-            productService.delete(product);
-            response.put("success", "true");
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            response.put("success", "false");
-            response.put("error", "An error occurred while deleting");
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        } else {
         }
+        productService.delete(product);
+        System.out.println("đã xóa");
+        return ResponseEntity.ok("Successfully deleted product");
     }
 }

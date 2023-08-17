@@ -247,34 +247,30 @@
                                     <div id="main-top-bar">
                                         <div class="user-menu">
                                             <div class="user-menu-item">
-                                                <a href="#">
+                                                <a href="javascript:void(0)"  >
                                                     <i class="uil uil-user-md"></i>
                                                 </a>
 
                                                 <div class="user-dropdown">
-                                                    <a th:href="@{~/tiembanhhoangtube/index}" class="dropdown-item"
-                                                    ><span class="mr-3"
-                                                    ><i class="fa fa-home"></i
-                                                    ></span>
-                                                        Home</a
-                                                    >
-                                                    <a th:href="@{/tiembanhhoangtube/profile}" class="dropdown-item"
-                                                    ><span class="mr-3"
-                                                    ><i class="fa fa-address-book"></i
-                                                    ></span>
-                                                        Profile</a
-                                                    >
-                                                    <a th:if="${session['username'] != null}" th:href="@{/tiembanhhoangtube/logout}" class="dropdown-item"
-                                                    ><span class="mr-3"><i class="fa fa-power-off"></i></span>
-                                                        Logout</a
-                                                    >
-                                                    <a th:if="${session['username'] == null}" th:href="@{/account/loginandregister}" class="dropdown-item">
-                                                <span class="mr-3"><i class="fa fa-user-md"></i></span
-                                                >Login</a
-                                                    ><a th:if="${session['username'] == null}" class="dropdown-item" href="/register"
-                                                ><span class="mr-3"><i class="fa fa-user-plus"></i></span
-                                                >Register</a
-                                                >
+                                                    <a th:href="@{~/tiembanhhoangtube/index}" class="dropdown-item">
+                                                        <span class="mr-3"><i class="fa fa-home"></i></span> Home
+                                                    </a>
+                                                    <a th:href="@{/user/profile}" class="dropdown-item">
+                                                        <span class="mr-3"><i class="fa fa-address-book"></i></span> Profile
+                                                    </a>
+
+                                                    <!-- Kiểm tra cookie JSESSIONID tồn tại -->
+                                                    <a th:if="${session.containsKey('JSESSIONID')}" th:href="@{/logout}" class="dropdown-item">
+                                                        <span class="mr-3"><i class="fa fa-power-off"></i></span> Logout
+                                                    </a>
+
+                                                    <!-- Kiểm tra cookie JSESSIONID không tồn tại -->
+                                                    <a th:unless="${session.containsKey('JSESSIONID')}" th:href="@{/api/login}" class="dropdown-item">
+                                                        <span class="mr-3"><i class="fa fa-user-md"></i></span> Login
+                                                    </a>
+                                                    <a th:unless="${session.containsKey('JSESSIONID')}" class="dropdown-item" href="/register">
+                                                        <span class="mr-3"><i class="fa fa-user-plus"></i></span> Register
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
