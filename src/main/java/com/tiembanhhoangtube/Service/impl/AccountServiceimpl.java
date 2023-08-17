@@ -122,18 +122,17 @@ public class AccountServiceimpl implements AccountService {
 
     @Override
     public <S extends Account> S save(S entity) {
-        Account account = findByEmail(entity.getEmail());
-        if(account != null){
-            if(entity.getPassword().equals("") || entity.getPassword().equals(account.getPassword())){
-                System.out.println("mật khẩu cũ:"+account.getPassword());
-                entity.setPassword(account.getPassword());
+        Optional<Account> account = findByUsername(entity.getUsername());
+        if(account.isPresent()){
+            if(entity.getPassword().equals("") || entity.getPassword().equals(account.get().getPassword())){
+                entity.setPassword(account.get().getPassword());
                 if(entity.getImage() == null){
-                    entity.setImage(account.getImage());
+                    entity.setImage(account.get().getImage());
                 }
                 return accountRepository.save(entity);
             }
             else if(entity.getImage() == null){
-                entity.setImage(account.getImage());
+                entity.setImage(account.get().getImage());
             }
             entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
             return accountRepository.save(entity);
@@ -150,10 +149,6 @@ public class AccountServiceimpl implements AccountService {
         entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
         return save(entity);
     }
-
-//    public Account UpdateInformation(Account entity){
-//
-//    }
 
     @Override
     public Optional<Account> findById(Long aLong) {

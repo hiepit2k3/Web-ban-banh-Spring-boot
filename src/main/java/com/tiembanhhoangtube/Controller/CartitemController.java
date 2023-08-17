@@ -9,6 +9,8 @@ import com.tiembanhhoangtube.entity.Cartitem;
 import com.tiembanhhoangtube.entity.Product;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.ModelMap;
@@ -39,40 +41,42 @@ public class CartitemController {
     HttpSession session;
 
 
-//    @GetMapping("shoppingcart")
-//    public ModelAndView getShoppingCart(ModelMap model, BindingResult result) {
-//        if(result.hasErrors()){
-//            return new ModelAndView("login-register",model);
-//        }
-//        String id = (String) session.getAttribute("username");
-//        System.out.println("id = " + id);
-////        Account account = accountService.findByUsername(id);
-//        model.addAttribute("listproducts",cartitemRepository.getCartitemAndProduct(account.getAccountId()));
-//        int sl = cartitemService.countByCustomerId(id);
-//        session.setAttribute("quantity",sl);
-//        return new ModelAndView( "shoping-cart",model);
-//    }
+    @GetMapping("shoppingcart")
+    public ModelAndView getShoppingCart(ModelMap model,@ModelAttribute("cartitem") Cartitem cartitem, BindingResult result) {
+        if(result.hasErrors()){
+            return new ModelAndView("login-register",model);
+        }
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+        Optional<Account> account = accountService.findByUsername(username);
+        model.addAttribute("listproducts",cartitemRepository.getCartitemAndProduct(account.get().getAccountId()));
+        int sl = cartitemService.countByCustomerId(username);
+        session.setAttribute("quantity",sl);
+        return new ModelAndView( "shoping-cart",model);
+    }
 
-//    @GetMapping("cartitem/id={productsId}")
-//    public ModelAndView oderProduct(ModelMap model, @PathVariable("productsId") String productId) {
-//        String username = (String) session.getAttribute("username");
-//        System.out.println("sp: "+ productId);
-//        Account account = accountService.findByUsername(username);
-//        Cartitem cartitem = cartitemService.findByCartitemProductId(Long.parseLong(productId));
-//        if (cartitem != null) {
-//            cartitem.setQuantity(cartitem.getQuantity() + 1);
-//            cartitemRepository.save(cartitem);
-//            System.out.println(":chạy chuyen trang");
-//            return new ModelAndView("redirect:/cuahangbanbanh/shoppingcart",model);
-//        }
-//        Cartitem newCartitem = new Cartitem();
-//        Product product = productService.findByproducId(Long.parseLong(productId));
-//        newCartitem.setQuantity(1);
-//        newCartitem.setProduct(product);
-//        newCartitem.setAccount(account);
-//        cartitemRepository.save(newCartitem);
-//        return new ModelAndView("redirect:/cuahangbanbanh/shoppingcart",model);
-//    }
+        @GetMapping("cartitem/id")
+        public ModelAndView oderProduct(ModelMap model, @RequestParam("productId") String productId) {
+            System.out.println("sp: "+ productId);
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String username = userDetails.getUsername();
+            Optional<Account> account = accountService.findByUsername(username);
+            Cartitem cartitem = cartitemService.findByCartitemProductId(Long.parseLong(productId));
+            if (cartitem != null) {
+                cartitem.setQuantity(cartitem.getQuantity() + 1);
+                cartitemRepository.save(cartitem);
+                System.out.println(":chạy chuyen trang");
+                return new ModelAndView("redirect:/cuahangbanbanh/shoppingcart",model);
+            }
+            Cartitem newCartitem = new Cartitem();
+            Product product = productService.findByproducId(Long.parseLong(productId));
+            newCartitem.setQuantity(1);
+            newCartitem.setProduct(product);
+            newCartitem.setAccount(account.get());
+            System.out.println("thêm vào giỏ hàng thành công");
+            cartitemRepository.save(newCartitem);
+            return new ModelAndView("redirect:/cuahangbanbanh/shoppingcart",model);
+        }
 
     @GetMapping("/cartitem/delete/id={itemId}")
     public String removeCartItem(@PathVariable("itemId") Long itemId) {

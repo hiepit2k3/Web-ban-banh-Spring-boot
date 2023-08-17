@@ -1,6 +1,7 @@
 package com.tiembanhhoangtube.Ath;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -20,11 +21,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
-        // Lấy thông tin vai trò của người dùng từ Authentication
-//        session.setAttribute("authr",authentication.getAuthorities());
-        System.out.println("chạy authenticationManager() kiểm tra");
-        String u = authentication.getName();
-        System.out.println("username:"+u);
         boolean isAdmin = authentication.getAuthorities().stream()
                 .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
 

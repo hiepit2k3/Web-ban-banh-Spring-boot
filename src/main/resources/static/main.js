@@ -135,10 +135,10 @@ jQuery(window).on('load', function () {
     }
 
     // initial position on first === All 
-    gsap.set(".filter-active", {
-        x: targets[0].offsetLeft,
-        width: targets[0].offsetWidth
-    });
+    // gsap.set(".filter-active", {
+    //     x: targets[0].offsetLeft,
+    //     width: targets[0].offsetWidth
+    // });
 
     function moveBar() {
         if (this.index != activeTab) {

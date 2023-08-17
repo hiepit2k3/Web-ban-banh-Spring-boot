@@ -112,18 +112,9 @@ public class ProductController {
 
     @GetMapping("")
     public String list(ModelMap model, @ModelAttribute("product") Product product) {
-        /*model.addAttribute("")*/
         System.out.println("data");
         return "admin/Admin-table-listProduct";
     }
-
-//    @ModelAttribute("categories")
-//    public Page<Category> getAll(@RequestParam("keyword") Optional<String> keywork, Model model
-//            , @RequestParam("page") Optional<Integer> page) {
-//        Pageable pageable = PageRequest.of(page.orElse(0), 5);
-//        Page<Category> categories = categoryService.findAllByNameLike("%" + keywork.orElse("") + "%", pageable);
-//        return categories;
-//    }
 
     @ModelAttribute("products")
     public List<Product> getAllcategory() {
@@ -135,25 +126,4 @@ public class ProductController {
         }
         return list;
     }
-
-
-//    @GetMapping("search")
-//    public String getSearch(@RequestParam("keyword") String keywork, Model model
-//            , @RequestParam("page") Optional<Integer> page) {
-//        Pageable pageable = PageRequest.of(page.orElse(0), 5);
-//        Page<Category> categories = categoryService.findAllByNameLike("%" + keywork + "%", pageable);
-//        model.addAttribute("categories", categories);
-//        return "forward:/admin/category";
-//    }
-//
-//    @GetMapping("searchall")
-//    public String getSearch1(@RequestParam("keyword") String keyword, Model model,
-//                             @RequestParam("page") Optional<Integer> page) {
-//        int pageSize = 5; // Số lượng phần tử trên mỗi trang
-//        Pageable pageable = PageRequest.of(page.orElse(0), pageSize);
-//        Page<Category> categories = categoryService.findAllByNameLike("%" + keyword + "%", pageable);
-//        model.addAttribute("page", pageable);
-//        model.addAttribute("categories", categories);
-//        return "forward:/admin/category";
-//    }
 }

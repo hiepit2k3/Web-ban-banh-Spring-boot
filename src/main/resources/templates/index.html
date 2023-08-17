@@ -67,7 +67,7 @@
                         </form>
                         <a th:href="@{/cuahangbanbanh/shoppingcart}" class="header-btn header-cart">
                             <i class="uil uil-shopping-bag"></i>
-                            <span th:text="${session.quantity}" class="cart-number"></span>
+                            <span text="" id="sl" class="cart-number"></span>
                         </a>
                         <div class=" header-btn">
                             <div id="main-wrapper">
@@ -85,20 +85,20 @@
                                                     ><span class="mr-3"><i class="fa fa-home"></i></span>
                                                         Home</a
                                                     >
-                                                    <a th:href="@{/tiembanhhoangtube/profile}" class="dropdown-item"
+                                                    <a th:href="@{/user/profile}" class="dropdown-item"
                                                     ><span class="mr-3"
                                                     ><i class="fa fa-address-book"></i
                                                     ></span>
                                                         Profile</a
                                                     >
-                                                    <a th:if="${session['username'] != null}" th:href="@{/tiembanhhoangtube/logout}" class="dropdown-item"
+                                                    <a th:if="${session['JSESSIONID'] != null}" th:href="@{/logout}" class="dropdown-item"
                                                     ><span class="mr-3"><i class="fa fa-power-off"></i></span>
                                                         Logout</a
                                                     >
-                                                    <a th:if="${session['username'] == null}" th:href="@{/account/loginandregister}" class="dropdown-item">
+                                                    <a th:if="${session['JSESSIONID'] == null}" th:href="@{/api/login}" class="dropdown-item">
                                                 <span class="mr-3"><i class="fa fa-user-md"></i></span
                                                 >Login</a
-                                                    ><a th:if="${session['username'] == null}" class="dropdown-item" href="/register"
+                                                    ><a th:if="${session['JSESSIONID'] == null}" class="dropdown-item" href="/register"
                                                 ><span class="mr-3"><i class="fa fa-user-plus"></i></span
                                                 >Register</a
                                                 >
@@ -249,7 +249,7 @@
                                  data-cat="breakfast">
                                 <form class="dish-box text-center">
                                     <div class="dist-img">
-                                        <img th:src="'/admin/products/images/' +${product.image}" alt="" style="width:230px; height:230px;">
+                                        <img th:src="'/tiembanhhoangtube/images/' +${product.image}" alt="" style="width:230px; height:230px;">
                                     </div>
                                     <div class="dish-title">
                                         <h3 class="h3-title"  th:text="${product.cakeName}"></h3>
@@ -262,7 +262,7 @@
                                                 <div class="product-price"><b th:text="${product.price}" style="font-size:23px"></b>VND</div>
                                             </li>
                                             <li>
-                                                <a th:href="@{'/cuahangbanbanh/cartitem/id=' + ${product.productsId}}" class="dish-add-btn" >
+                                                <a th:href="@{'/cuahangbanbanh/cartitem/id?productId='+${product.productsId}}" class="dish-add-btn" >
                                                     <i class="uil uil-plus"></i>
                                                 </a>
                                             </li>
@@ -942,7 +942,7 @@
     </div>
 </div>
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- jquery  -->
 <script th:src="@{~/assets/js/jquery-3.5.1.min.js}"></script>
 <!-- bootstrap -->
@@ -971,10 +971,7 @@
 <script th:src="@{~/assets/js/ScrollTrigger.min.js}"></script>
 <!-- scroll to plugin  -->
 <script th:src="@{~/assets/js/ScrollToPlugin.min.js}"></script>
-<!-- rellax  -->
-<!-- <script src="assets/js/rellax.min.js"></script> -->
-<!-- <script src="assets/js/rellax-custom.js"></script> -->
-<!-- smooth scroll  -->
+
 <script th:src="@{~/assets/js/smooth-scroll.js}"></script>
 <!-- custom js  -->
 <script th:src="@{~/main.js}"></script>
@@ -984,6 +981,21 @@
     $(".user-menu").click(function() {
         $(this).toggleClass("show");
     });
+
+    const API = 'http://localhost:8080/tiembanhhoangtube/slgiohang'
+
+    fetch(API).then(response => {
+
+        // Kiểm tra xem phản hồi có thành công không
+        if (!response.ok) {
+            throw new Error('Có lỗi khi truy vấn API');
+        }
+        // Chuyển đổi phản hồi sang định dạng JSON
+        return response.json();
+    }).then(data =>{
+        console.log(data);
+        document.getElementById('sl').innerText = data;
+    })
 </script>
 
 </body>

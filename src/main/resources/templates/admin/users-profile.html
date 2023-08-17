@@ -19,16 +19,17 @@
           rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-    <link th:href="@{~/admin/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{~/admin/assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
-    <link th:href="@{~/admin/assets/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
-    <link th:href="@{~/admin/assets/vendor/quill/quill.snow.css}" rel="stylesheet">
-    <link th:href="@{~/admin/assets/vendor/quill/quill.bubble.css}" rel="stylesheet">
-    <link th:href="@{~/admin/assets/vendor/remixicon/remixicon.css}" rel="stylesheet">
-    <link th:href="@{~/admin/assets/vendor/simple-datatables/style.css}" rel="stylesheet">
+    <link th:href="@{~/tainguyen/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{~/tainguyen/assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
+    <link th:href="@{~/tainguyen/assets/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
+    <link th:href="@{~/tainguyen/assets/vendor/quill/quill.snow.css}" rel="stylesheet">
+    <link th:href="@{~/tainguyen/assets/vendor/quill/quill.bubble.css}" rel="stylesheet">
+    <link th:href="@{~/tainguyen/assets/vendor/remixicon/remixicon.css}" rel="stylesheet">
+    <link th:href="@{~/tainguyen/assets/vendor/simple-datatables/style.css}" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link th:href="@{~/admin/assets/css/style.css}" rel="stylesheet">
+    <link th:href="@{~/tainguyen/assets/css/style.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 </head>
 
@@ -205,51 +206,24 @@
             <li class="nav-item dropdown pe-3">
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                    <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+                    <img src="assets/img/profile-img.jpg" id="imgprofile" alt="Profile" class="rounded-circle">
+                    <span class="d-none d-md-block dropdown-toggle ps-2" id="fullname2">K. Anderson</span>
                 </a><!-- End Profile Iamge Icon -->
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
-                        <h6>Kevin Anderson</h6>
+                        <h6 id="fullname1">Kevin Anderson</h6>
                         <span>Web Designer</span>
                     </li>
                     <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" th:href="@{tainguyen}">
+                        <a class="dropdown-item d-flex align-items-center" th:href="@{~/admin/profile}">
                             <i class="bi bi-person"></i>
                             <span>My Profile</span>
                         </a>
                     </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                            <i class="bi bi-gear"></i>
-                            <span>Account Settings</span>
-                        </a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                            <i class="bi bi-question-circle"></i>
-                            <span>Need Help?</span>
-                        </a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" th:href="@{tainguyen}">
+                        <a class="dropdown-item d-flex align-items-center" th:href="@{/logout}">
                             <i class="bi bi-box-arrow-right"></i>
                             <span>Sign Out</span>
                         </a>
@@ -269,7 +243,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link " th:href="@{tainguyen}">
+            <a class="nav-link" th:href="@{~/admin/index}">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
@@ -282,13 +256,13 @@
             </a>
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a th:href="@{tainguyen}">
+                    <a th:href="@{~/admin/products/add}">
                         <i class="bi bi-circle"></i><span>Thêm Chính Sửa Thông Tin Sản Phẩm</span>
                     </a>
                 </li>
 
                 <li>
-                    <a th:href="@{tainguyen}">
+                    <a th:href="@{~/admin/customers/add}">
                         <i class="bi bi-circle"></i><span>Thêm Chính Sửa Thông Tin Tài Khoản</span>
                     </a>
                 </li>
@@ -298,70 +272,26 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i
-                    class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a th:href="@{tainguyen}">
+                    <a th:href="@{~/admin/products}">
                         <i class="bi bi-circle"></i><span>Danh Sách Sản Phẩm</span>
                     </a>
                 </li>
                 <li>
-                    <a th:href="@{tainguyen}">
+                    <a th:href="@{~/admin/customers}">
                         <i class="bi bi-circle"></i><span>Danh Sách Tài Khoản</span>
                     </a>
                 </li>
                 <li>
-                    <a th:href="@{tainguyen}">
+                    <a th:href="@{~/admin/order}">
                         <i class="bi bi-circle"></i><span>Danh Sách Đơn Hàng</span>
                     </a>
                 </li>
             </ul>
         </li><!-- End Tables Nav -->
-        <li class="nav-heading">Pages</li>
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" th:href="@{tainguyen}">
-                <i class="bi bi-person"></i>
-                <span>Profile</span>
-            </a>
-        </li><!-- End Profile Page Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" th:href="@{tainguyen}">
-                <i class="bi bi-question-circle"></i>
-                <span>F.A.Q</span>
-            </a>
-        </li><!-- End F.A.Q Page Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" th:href="@{tainguyen}">
-                <i class="bi bi-envelope"></i>
-                <span>Contact</span>
-            </a>
-        </li><!-- End Contact Page Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" th:href="@{/account/loginandregister}">
-                <i class="bi bi-card-list"></i>
-                <span>Register</span>
-            </a>
-        </li><!-- End Register Page Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" th:href="@{/account/loginandregister}">
-                <i class="bi bi-box-arrow-in-right"></i>
-                <span>Login</span>
-            </a>
-        </li><!-- End Login Page Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" th:href="@{tainguyen}">
-                <i class="bi bi-dash-circle"></i>
-                <span>Error 404</span>
-            </a>
-        </li><!-- End Error 404 Page Nav -->
     </ul>
 </aside>
 
@@ -384,9 +314,8 @@
 
                 <div class="card">
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                        <img th:src="${account.image != null ? '/admin/products/images/'+ account.image : '/img/profile-img.jpg'}"
-                             alt="Profile" class="rounded-circle">
-                        <h2 th:text="${account.fullname}"></h2>
+                        <img src="" id="img" alt="Profile" class="rounded-circle">
+                        <h2 text="" id="getfullname"></h2>
                         <h3>Web Designer</h3>
                         <div class="social-links mt-2">
                             <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
@@ -434,40 +363,29 @@
                         <div class="tab-content pt-2">
 
                             <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                                <h5 class="card-title">About</h5>
-                                <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores
-                                    cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure
-                                    rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at
-                                    unde.</p>
-
                                 <h5 class="card-title">Profile Details</h5>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label ">Full Name</div>
-                                    <div class="col-lg-9 col-md-8" th:text="${account.fullname}"></div>
+                                    <div class="col-lg-9 col-md-8" text="" id="textfullname"></div>
                                 </div>
 
-
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Job</div>
-                                    <div class="col-lg-9 col-md-8">Web Designer</div>
-                                </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Address</div>
-                                    <div class="col-lg-9 col-md-8" th:text="${account.adress}">A108 Adam Street, New
+                                    <div class="col-lg-9 col-md-8" text="" id="address1" >A108 Adam Street, New
                                         York, NY 535022
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Phone</div>
-                                    <div class="col-lg-9 col-md-8" th:text="${account.sdt}">(436) 486-3538 x29071</div>
+                                    <div class="col-lg-9 col-md-8" text="" id="phone1">(436) 486-3538 x29071</div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Email</div>
-                                    <div class="col-lg-9 col-md-8" th:text="${account.email}">k.anderson@example.com
+                                    <div class="col-lg-9 col-md-8" text="" id="email1">k.anderson@example.com
                                     </div>
                                 </div>
 
@@ -476,17 +394,15 @@
                             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                                 <!-- Profile Edit Form -->
-                                <form id="myForm" th:action="@{tainguyen}" method="post"
-                                      enctype="multipart/form-data" th:object="${account}">
+                                <form id="formedit" enctype="multipart/form-data" >
                                     <div class="row mb-3">
                                         <label th:for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile
                                             Image</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input type="hidden" th:field="*{image}">
-                                            <input type="hidden" th:field="*{password}">
+                                            <input type="hidden" >
+                                            <input type="hidden">
                                             <label for="myFile" class="pt-2">
-                                                <img id="imagePreview"
-                                                     th:src="${account.image != null ? '/admin/products/images/'+ account.image : '/img/profile-img.jpg'}"
+                                                <img id="imagePreview" src="/img/profile-image.jpg"
                                                      alt="Profile">
                                                 <input onchange="displayImage()" type="file" id="myFile" name="imageFile"
                                                        class="btn btn-primary btn-sm"
@@ -499,40 +415,33 @@
                                     <div class="row mb-3">
                                         <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="fullname" type="text" class="form-control" id="fullName"
-                                                   th:value="${account.fullname}">
+                                            <input name="fullname" type="text" class="form-control" id="fullName">
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
                                         <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="adress" type="text" class="form-control" id="Address"
-                                                   th:value="${account.adress}">
+                                            <input name="adress" type="text" class="form-control" id="Address">
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
                                         <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="sdt" type="text" class="form-control" id="Phone"
-                                                   th:value="${account.sdt}">
+                                            <input name="sdt" type="text" class="form-control" id="Phone">
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
                                         <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="email" type="email" class="form-control" id="Email"
-                                                   th:value="${account.email }">
+                                            <input name="email" type="email" class="form-control" id="Email">
                                         </div>
-                                        <input name="role" type="hidden" th:value="*{role}">
-                                        <input name="username" type="hidden" th:value="*{username}">
-                                        <input name="accountId" type="hidden" th:value="*{accountId}">
                                     </div>
 
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        <button type="button" id="save" class="btn btn-primary">Save Changes</button>
                                     </div>
                                 </form><!-- End Profile Edit Form -->
 
@@ -613,15 +522,15 @@
                                             <input name="renewpassword" type="password" class="form-control"
                                                    id="renewPassword">
                                         </div>
-                                        <input name="image" type="hidden" th:value="*{image}">
-                                        <input name="imageFile" style="display: none" type="file">
-                                        <input name="role" type="hidden" th:value="*{role}">
-                                        <input name="username" type="hidden" th:value="*{username}">
-                                        <input name="accountId" type="hidden" th:value="*{accountId}">
-                                        <input name="adress" type="hidden" th:value="*{adress}">
-                                        <input name="sdt" type="hidden" th:value="*{sdt}">
-                                        <input name="fullname" type="hidden" th:value="*{fullname}">
-                                        <input name="email" type="hidden" th:value="*{email}">
+<!--                                        <input name="image" type="hidden" th:value="*{image}">-->
+<!--                                        <input name="imageFile" style="display: none" type="file">-->
+<!--                                        <input name="role" type="hidden" th:value="*{role}">-->
+<!--                                        <input name="username" type="hidden" th:value="*{username}">-->
+<!--                                        <input name="accountId" type="hidden" th:value="*{accountId}">-->
+<!--                                        <input name="adress" type="hidden" th:value="*{adress}">-->
+<!--                                        <input name="sdt" type="hidden" th:value="*{sdt}">-->
+<!--                                        <input name="fullname" type="hidden" th:value="*{fullname}">-->
+<!--                                        <input name="email" type="hidden" th:value="*{email}">-->
                                     </div>
 
                                     <div class="text-center">
@@ -658,22 +567,63 @@
 
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
         class="bi bi-arrow-up-short"></i></a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
         crossorigin="anonymous"></script>
-<script th:src="@{~/admin/assets/vendor/apexcharts/apexcharts.min.js}"></script>
-<script th:src="@{~/admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-<script th:src="@{~/admin/assets/vendor/chart.js/chart.umd.js}"></script>
-<script th:src="@{~/admin/assets/vendor/echarts/echarts.min.js}"></script>
-<script th:src="@{~/admin/assets/vendor/quill/quill.min.js}"></script>
-<script th:src="@{~/admin/assets/vendor/simple-datatables/simple-datatables.js}"></script>
-<script th:src="@{~/admin/assets/vendor/tinymce/tinymce.min.js}"></script>
-<script th:src="@{~/admin/assets/vendor/php-email-form/validate.js}"></script>
+<script th:src="@{~/tainguyen/assets/vendor/apexcharts/apexcharts.min.js}"></script>
+<script th:src="@{~/tainguyen/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{~/tainguyen/assets/vendor/chart.js/chart.umd.js}"></script>
+<script th:src="@{~/tainguyen/assets/vendor/echarts/echarts.min.js}"></script>
+<script th:src="@{~/tainguyen/assets/vendor/quill/quill.min.js}"></script>
+<script th:src="@{~/tainguyen/assets/vendor/simple-datatables/simple-datatables.js}"></script>
+<script th:src="@{~/tainguyen/assets/vendor/tinymce/tinymce.min.js}"></script>
+<script th:src="@{~/tainguyen/assets/vendor/php-email-form/validate.js}"></script>
 
 <!-- Template Main JS File -->
-<script th:src="@{tainguyen}"></script>
+<script th:src="@{~/main.js}"></script>
 
 <script>
+    // Địa chỉ URL của API bạn muốn truy vấn
+    const apiUrl = 'http://localhost:8080/admin/customers/profile';
+
+    // Lấy dữ liệu từ API bằng cách sử dụng fetch
+    fetch(apiUrl)
+        .then(response => {
+
+            // Kiểm tra xem phản hồi có thành công không
+            if (!response.ok) {
+                throw new Error('Có lỗi khi truy vấn API');
+            }
+            // Chuyển đổi phản hồi sang định dạng JSON
+            return response.json();
+        })
+        .then(data => {
+            // Ở đây bạn có thể làm gì đó với dữ liệu đã lấy được từ API
+            const dataprofile = {
+                accountId: data.accountId,
+                address: data.adress,
+                email: data.email,
+                fullname: data.fullname,
+                image: data.image,
+                role: data.role,
+                sdt: data.sdt,
+                username: data.username
+            };
+            console.log(dataprofile.image);
+            document.getElementById("img").src = '/admin/products/images/' + dataprofile.image;
+            document.getElementById("imgprofile").src = '/admin/products/images/' + dataprofile.image;
+            document.getElementById("address1").textContent = dataprofile.address;
+            document.getElementById("email1").textContent = dataprofile.email;
+            document.getElementById("textfullname").textContent = dataprofile.fullname;
+            document.getElementById("fullname2").textContent = dataprofile.fullname;
+            document.getElementById("fullname").textContent = dataprofile.fullname;
+            document.getElementById("phone1").textContent = dataprofile.sdt;
+        })
+        .catch(error => {
+            console.error('Lỗi:', error);
+        });
+
     function displayImage() {
         var preview = document.getElementById('imagePreview');
         var file = document.getElementById('myFile').files[0];
@@ -686,42 +636,45 @@
         if (file) {
             reader.readAsDataURL(file);
         } else {
-            preview.src = '/img/addProduct.png';
+            preview.src = '/img/profile-image.jpg';
         }
     }
 
-    $(document).ready(function () {
-        $('#myForm').submit(function (e) {
-            e.preventDefault(); // Ngăn chặn việc gửi form mặc định
+    
 
-            var formData = new FormData($(this)[0]); // Lấy dữ liệu form
-            $.ajax({
-                url: $(this).attr('action'), // URL của endpoint xử lý form
-                type: $(this).attr('method'), // Phương thức POST
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    // Xử lý kết quả thành công
-                    // Xử lý kết quả thành công
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Thành công',
-                        text: 'Cập nhật thành công.',
-                    });
-                    // Thực hiện các thao tác khác sau khi cập nhật thành công (nếu cần)
-                },
-                error: function (xhr, status, error) {
-                    // Xử lý lỗi
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Có lỗi xảy ra: ' + error,
-                    });
-                }
+    // chính sửa thông tin cá nhân
+    const buttonsave = document.getElementById('save');
+    const formedit = document.getElementById('formedit');
+     buttonsave.addEventListener('click',async  () => {
+         const formData = new FormData(formedit);
+         await sendFormData("http://localhost:8080/admin/customers/update", "PUT", formData); // URL của API thêm
+     });
+
+    async function sendFormData(url, method, data) {
+        try {
+            const response = await fetch(url, {
+                method: method,
+                body: data,
             });
-        });
-    });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                toastr.success("thành công", "Thành Công");
+                // Đợi 5 giây sau khi trang đã tải xong và sau đó load lại trang
+                setTimeout(function() {
+                    location.reload();
+                }, 3000); // 5000 milliseconds = 5 giây
+                // Xử lý dữ liệu trả về từ API tại đâ                                                                       y
+            } else {
+                toastr.error("Thất Bại", "Thất bại");
+                // Xử lý trường hợp lỗi từ API
+            }
+        } catch (error) {
+            alert('Error: ' + error.message);
+            console.error("Network error:", error);
+            // Xử lý lỗi kết nối mạng hoặc lỗi khác
+        }
+    }
     $(document).ready(function() {
         $('#myFormPassword').submit(function(e) {
             e.preventDefault(); // Ngăn chặn việc gửi form mặc định

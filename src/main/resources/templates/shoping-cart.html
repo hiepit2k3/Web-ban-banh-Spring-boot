@@ -8,13 +8,6 @@
             rel="stylesheet"
             href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
     />
-    <!--    &lt;!&ndash; bootstrap  &ndash;&gt;-->
-    <!--    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />-->
-    <!--    &lt;!&ndash; for swiper slider  &ndash;&gt;-->
-    <!--    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css" />-->
-
-    <!--    &lt;!&ndash; fancy box  &ndash;&gt;-->
-    <!--    <link rel="stylesheet" href="assets/css/jquery.fancybox.min.css" />-->
 
     <link rel="stylesheet" th:href="@{~/assets/css/bootstrap.min.css}">
     <!-- for swiper slider  -->
@@ -26,9 +19,17 @@
 
     <link rel="stylesheet" th:href="@{~/assets/css/cart-item.css}"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <style>
+        .toast-success {
+            background-color: #4CAF50 !important; /* Change this to your desired background color */
+            color: #ffffff !important; /* Change this to your desired text color */
+        }
+        .toast-error{
+            background-color: #FF5733 !important; /* Change this to your desired background color for error */
+            color: #ffffff !important; /* Change this to your desired text color */
+        }
         .remove-button {
             display: inline-block;
             position: relative;
@@ -303,7 +304,7 @@
                                     <input type="checkbox" class="form-check-input" th:data-item-index="${is.index}"
                                            onclick="updateTotal()">
                                     <div class="d-flex">
-                                        <img th:src="'/admin/products/images/' +${product[1].image}"
+                                        <img th:src="'/tiembanhhoangtube/images/' +${product[1].image}"
                                              class="border rounded me-3" style="width: 96px; height: 96px;"/>
                                         <div class="">
                                             <a href="#" class="nav-link" th:text="${product[1].cakeName}"></a>
@@ -463,7 +464,7 @@
                                 <input type="checkbox" name="sameadr"/> Shipping address same
                                 as billing
                             </label>
-                            <input type="submit" value="Oder Now" class="btn"/>
+                            <button type="button" value="Oder Now" class="btn">Đặt Hàng</button>
                         </form>
                     </div>
                 </div>
@@ -573,6 +574,7 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <!-- jquery  -->
 <!--<script th:src="@{~/assets/js/jquery-3.5.1.min.js}"></script>-->
 <!-- bootstrap -->
@@ -612,9 +614,11 @@
     $(".user-menu").click(function () {
         $(this).toggleClass("show");
     });
-
+    $('#dathang').click(function () {
+        $(".body-overlay").css("display", "block");
+        $(".model").addClass("show-model");
+    })
     function updateTotal() {
-
         var checkboxes = document.getElementsByClassName('form-check-input');
         var total = 0;
         var totalprice = 0;
@@ -655,7 +659,6 @@
     }
 
     function order() {
-        // alert("sd")?
         $('#addOrder').submit(function (e) {
             e.preventDefault(); // Ngăn chặn việc gửi form mặc định
 
@@ -669,9 +672,7 @@
                     var cartitemInput = document.querySelector('input[name="cartitem[' + itemIndex + ']"]')
                     var cartitemid = parseInt(cartitemInput.value);
                     var quantityInput = document.querySelector('input[name="quantity[' + itemIndex + ']"]');
-                    console.log(quantityInput);
                     var quantity = parseInt(quantityInput.value);
-                    console.log(quantity);
                     var tdElement = document.querySelector('input[name="price[' + itemIndex + ']"]');
                     var price = parseFloat(tdElement.value);
                     var ui = document.querySelector('input[name="productid[' + itemIndex + ']"]');
@@ -691,19 +692,21 @@
                 }
             }
             // Gửi dữ liệu về controller bằng AJAX
-            alert("Đặt Hàng Thành Công");
             $.ajax({
-                url: '/cuahangbanbanh/addorder',
+                url: '/tiembanbanh/order/add',
                 method: $(this).attr('method'),
                 data: JSON.stringify(selectedItems),
                 processData: false,
                 contentType: 'application/json',
                 success: function (response) {
-                    // Xử lý phản hồi từ controller (nếu cần)
-                    alert('ok');
-                    $(".body-overlay").css("display", "block");
-                    $(".model").addClass("show-model");
-                    console.log(response)
+                    if (response === 'Success') {
+                        toastr.success("thành công", "Thành Công");
+                        // Đợi 5 giây sau khi trang đã tải xong và sau đó load lại trang
+                        setTimeout(function() {
+                            location.reload();
+                        }, 3000); // 5000 milliseconds = 5 giây
+                        // Xử lý dữ liệu trả về từ API tại đâ                                                                       y
+                    }
                 },
                 error: function (xhr, status, error) {
                     // Xử lý lỗi (nếu có)

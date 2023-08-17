@@ -1,6 +1,7 @@
 package com.tiembanhhoangtube.config;
 
 import com.tiembanhhoangtube.Ath.CustomAuthenticationSuccessHandler;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -25,9 +26,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-//    @Autowired
-//    @Lazy
-//    JwtAuthenticationFilter jwtAuthenticationFilter;
     @Bean
     public CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler() {
         return new CustomAuthenticationSuccessHandler();
@@ -45,10 +43,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests()
-                .requestMatchers("/api/login","/api/login/google","/authentication/register","/tiembanhhoangtube/index").permitAll()
+                .requestMatchers("/api/login","/api/login/google","/authentication/register","/tiembanhhoangtube/index","/users/profile","/logout").permitAll()
                 .requestMatchers("/admin/index","/admin/form/**","/admin/customers/**","/admin/products/**").hasAuthority("ROLE_ADMIN")
                 .requestMatchers("/tainguyen/**","/assets/**").permitAll()
                 .anyRequest().authenticated()
+                .and()
+                .logout() // Cấu hình logout cho Form Login
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/api/login")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
                 .and()
                 .formLogin()
                 .loginPage("/api/login")
@@ -59,7 +63,16 @@ public class SecurityConfig {
                 .loginPage("/api/login")
                 .defaultSuccessUrl("/api/login/google")
                 .authorizationEndpoint()
-                .baseUri("/oauth2/authorization");
+                .baseUri("/oauth2/authorization")
+                .and();
+        http.exceptionHandling(exceptionHandling -> exceptionHandling
+                .accessDeniedHandler((request, response, accessDeniedException) -> {
+                            // Xử lý khi người dùng không có quyền truy cập
+                            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                            request.setCharacterEncoding("UTF-8");
+                            response.setCharacterEncoding("UTF-8");
+                            response.sendRedirect("/403");
+                        }));
         http.csrf().disable().cors().and();
         return http.build();
     }

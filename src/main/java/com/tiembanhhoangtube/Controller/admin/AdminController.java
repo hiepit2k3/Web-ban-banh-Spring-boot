@@ -38,13 +38,10 @@ public class AdminController {
 
         return "admin/Admin-account";
     }
-//    @GetMapping("profile")
-//    public ModelAndView getProfile(ModelMap model){
-//        String username = (String) session.getAttribute("username");
-//        Account account = accountService.findByUsername(username);
-//        model.addAttribute("account", account);
-//        return new ModelAndView("admin/users-profile",model);
-//    }
+    @GetMapping("profile")
+    public String getProfile(){
+        return "admin/users-profile";
+    }
     @GetMapping("contact")
     public ModelAndView getContact(ModelMap model){
         return new ModelAndView("admin/pages-contact");
