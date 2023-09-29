@@ -14,10 +14,6 @@
     <name>TiemBanhHoangTuBe</name>
     <description>TiemBanhHoangTuBe</description>
     <properties>
-        <properties>
-            <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        </properties>
-
         <java.version>17</java.version>
     </properties>
     <dependencies>
