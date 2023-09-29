@@ -61,7 +61,7 @@ public class SecurityConfig {
                 .and()
                 .oauth2Login()
                 .loginPage("/api/login")
-                .defaultSuccessUrl("/api/login/google")
+                .defaultSuccessUrl("/api/login/google",false)
                 .authorizationEndpoint()
                 .baseUri("/oauth2/authorization")
                 .and();

@@ -69,25 +69,6 @@ public class CustomerController {
     }
 
 
-//    @GetMapping("/edit/id={accountId}")
-//    public ModelAndView edit(ModelMap model, @PathVariable("accountId") Long accountId) {
-//        Optional<Account> opt = accountService.findById(accountId);
-//        accountDto dto = new accountDto();
-//        System.out.println("Qua");
-//        if (opt.isPresent()) {
-//            Account entity = opt.get();
-//            BeanUtils.copyProperties(entity, dto);
-//
-//            dto.setRole(entity.getRole());
-//            System.out.println("chức vụ: " + dto.getRole());
-//            model.addAttribute("customer", dto);
-//            return new ModelAndView("admin/Admin-account", model);
-//
-//        }
-//        model.addAttribute("messages", "CA");
-//        return new ModelAndView("forward:/admin/customers", model);
-//    }
-
     @GetMapping("/delete/id={customerId}")
     public  ModelAndView deleteCustomer(ModelMap model, @PathVariable("customerId") Long customerId) throws Exception {
         Optional<Account> otp = accountService.findById(customerId);

@@ -69,8 +69,8 @@ public class RestfulLoginAPI {
         account.setUsername(username);
         account.setPassword("123");
         account.setRole("ROLE_USER");
+        System.out.println("Account:"+account);
         accountServiceimpl.AuthenGoogle(account);
-        // Thực hiện chuyển hướng từ máy chủ
         return ResponseEntity.status(HttpStatus.FOUND)
                 .header("Location", "http://localhost:8080/tiembanhhoangtube/index")
                 .build();

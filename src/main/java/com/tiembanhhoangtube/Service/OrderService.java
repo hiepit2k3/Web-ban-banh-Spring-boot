@@ -29,6 +29,9 @@ public interface OrderService{
     @Transactional
     List<Object[]> getOrder();
 
+    @Query("select * from  orders a inner join accounts a2 on a.account_id = a2.account_id where a.account_id = 55 and a.status = 1")
+    List<Object[]> getDonhangdangdat();
+
     @Deprecated
     void deleteInBatch(Iterable<Order> entities);
 

@@ -18,17 +18,16 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     private RequestCache requestCache = new HttpSessionRequestCache();
 
     HttpSession session;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
         boolean isAdmin = authentication.getAuthorities().stream()
                 .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
-
-
         boolean isUser = authentication.getAuthorities().stream()
                 .anyMatch(authority -> authority.getAuthority().equals("ROLE_USER"));
-        System.out.println("role "+isAdmin);
-        System.out.println("role "+isUser);
+        System.out.println("role " + isAdmin);
+        System.out.println("role " + isUser);
         if (isAdmin) {
             // Nếu là admin, chuyển hướng tới trang cho admin
             response.sendRedirect("/admin/index");
@@ -49,7 +48,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             }
         }
     }
-
 }
 
 

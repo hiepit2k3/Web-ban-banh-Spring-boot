@@ -151,7 +151,18 @@ public class AccountProfileUserController {
             message.setFrom(new InternetAddress(fromEmail));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
             message.setSubject("Password Reset");
-            message.setText("Your new password: " + newPassword);
+            message.setText("Hello,\n" +
+                    "\n" +
+                    "We received a request to reset your password. Here's your new password:\n" +
+                    "\n" +
+                    "New Password:  "+ newPassword +
+                    "\n" +
+                    "Please make sure to change your password after logging in for security reasons.\n" +
+                    "\n" +
+                    "If you didn't request a password reset, please ignore this email.\n" +
+                    "\n" +
+                    "Best regards,\n" +
+                    "Your Application Team");
 
             Transport.send(message);
 

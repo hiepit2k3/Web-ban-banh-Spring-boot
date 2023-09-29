@@ -14,13 +14,123 @@
     <!-- GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">-->
+    <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">-->
     <link rel="stylesheet" href="../static/tainguyen/assets/js/toart/build/toastr.min.css">
     <style>
         .toast-success {
             background-color: #4CAF50 !important; /* Change this to your desired background color */
             color: #ffffff !important; /* Change this to your desired text color */
         }
+        .form-container {
+            max-width: 400px;
+            background-color: #fff;
+            padding: 32px 24px;
+            font-size: 14px;
+            font-family: inherit;
+            color: #212121;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-sizing: border-box;
+            border-radius: 10px;
+            box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.084), 0px 2px 3px rgba(0, 0, 0, 0.168);
+        }
+
+        #quenmatkhau {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            align-content: center;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            background-color: white;
+            padding: 20px;
+            display: none;
+        }
+
+        .form-container button:active {
+            scale: 0.95;
+        }
+
+        .form-container .logo-container {
+            text-align: center;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .form-container .form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-container .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .form-container .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-container .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-family: inherit;
+            border: 1px solid #ccc;
+        }
+
+        .form-container .form-group input::placeholder {
+            opacity: 0.5;
+        }
+
+        .form-container .form-group input:focus {
+            outline: none;
+            border-color: #1778f2;
+        }
+
+        .form-container .form-submit-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: inherit;
+            color: #fff;
+            background-color: #212121;
+            border: none;
+            width: 100%;
+            padding: 12px 16px;
+            font-size: inherit;
+            gap: 8px;
+            margin: 12px 0;
+            cursor: pointer;
+            border-radius: 6px;
+            box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.084), 0px 2px 3px rgba(0, 0, 0, 0.168);
+        }
+
+        .form-container .form-submit-btn:hover {
+            background-color: #313131;
+        }
+
+        .form-container .link {
+            color: #1778f2;
+            text-decoration: none;
+        }
+
+        .form-container .signup-link {
+            align-content: center;
+            font-weight: 500;
+        }
+
+        .form-container .signup-link .link {
+            font-weight: 400;
+        }
+
+        .form-container .link:hover {
+            text-decoration: underline;
+        }
+
     </style>
 </head>
 
@@ -62,11 +172,15 @@
                 <button class="btn solid">Login</button>
 
                 <div class="social-media">
-                    <a class="icon-mode"  th:href="@{~/oauth2/authorization/google}"
+                    <a class="icon-mode" th:href="@{~/oauth2/authorization/google}"
                     ><i class="fab fa-google"></i></a>
                     <a class="icon-mode" th:href="@{~/oauth2/authorization/facebook}"
                     ><i class="fab fa-facebook"></i></a>
+
+                    <button id="quenMatKhauButton" class="icon-mode" type="button"><i class="fas fa-lock"></i></button>
                 </div>
+
+
             </form>
             <form id="dangki" class="sign-up-form">
                 <h2 class="title">Register</h2>
@@ -157,6 +271,30 @@
                 <button class="btn transparent" id="sign-in-btn">Sign in</button>
             </div>
         </div>
+
+        <!--        /////// form quên mật khẩu-->
+        <div id="quenmatkhau" class="form-container">
+            <div class="logo-container">
+                Forgot Password
+            </div>
+
+            <form class="form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" name="email" placeholder="Enter your email" required="">
+                </div>
+
+                <button class="form-submit-btn" type="submit">Send Email</button>
+                <!-- Thêm biểu tượng đóng -->
+                <span id="closeQuenMatKhau" class="close-icon">X</span>
+            </form>
+
+            <p class="signup-link">
+                Don't have an account?
+                <a href="#" class="signup-link link"> Sign up now</a>
+            </p>
+        </div>
+
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -164,7 +302,20 @@
 <script src="../static/tainguyen/assets/js/toart/build/toastr.min.js"></script>
 <script th:src="@{~/assets/js/login.js}"></script>
 <script>
-    document.getElementById('dangki').addEventListener('submit', function(event) {
+    // ấn form quên mật khẩu
+    const formContainer = document.getElementById("quenmatkhau");
+    formContainer.style.display = "none";
+    const quenMatKhauButtons = document.getElementById("quenMatKhauButton");
+    const closeQuenMatKhau = document.getElementById("closeQuenMatKhau");
+    quenMatKhauButtons.addEventListener("click",function (event){
+        event.preventDefault();
+        formContainer.style.display = "block";
+    });
+    closeQuenMatKhau.addEventListener("click", function () {
+        formContainer.style.display = "none";
+    });
+
+    document.getElementById('dangki').addEventListener('submit', function (event) {
         event.preventDefault();
         const username = document.getElementById('username1').value;
         const email = document.getElementById('email1').value;

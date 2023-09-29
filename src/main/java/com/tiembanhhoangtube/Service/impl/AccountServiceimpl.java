@@ -19,7 +19,7 @@ import java.util.function.Function;
 
 
 @Service
-public class AccountServiceimpl implements AccountService {
+public class    AccountServiceimpl implements AccountService {
     @Autowired
     AccountRepository accountRepository;
 
@@ -151,7 +151,7 @@ public class AccountServiceimpl implements AccountService {
             return account;
         }
         entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
-        return save(entity);
+        return accountRepository.save(entity);
     }
 
     @Override

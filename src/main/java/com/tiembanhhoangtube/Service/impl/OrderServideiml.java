@@ -54,6 +54,17 @@ public class OrderServideiml implements OrderService {
     }
 
     @Override
+    public List<Object[]> getDonhangdangdat() {
+        return null;
+    }
+
+//    @Override
+//    @Query("select a,a2 from  Order a inner join Account a2 on a.account.accountId = a2.accountId where a.account.accountId = 55 and a.status = 1")
+//    public List<Object[]> getDonhangdangdat(Long accountId, ) {
+//        return orderRepository.getDonhangdangdat();
+//    }
+
+    @Override
     @Deprecated
     public void deleteInBatch(Iterable<Order> entities) {
         orderRepository.deleteInBatch(entities);
