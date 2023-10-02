@@ -8,7 +8,6 @@ import com.tiembanhhoangtube.Service.StogareService;
 import com.tiembanhhoangtube.entity.Account;
 import com.tiembanhhoangtube.entity.Product;
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
@@ -50,7 +49,7 @@ public class indexController {
 
 
     @GetMapping("index")
-    public ModelAndView getProductPage(ModelMap model, @Valid @RequestParam(value = "page", defaultValue = "0") int page) {
+    public ModelAndView getProductPage(ModelMap model, @RequestParam(value = "page", defaultValue = "0") int page) {
         String name = (String) session.getAttribute("username");
         System.out.println("name :"+name);
         int sl = cartitemService.countByCustomerId(name);

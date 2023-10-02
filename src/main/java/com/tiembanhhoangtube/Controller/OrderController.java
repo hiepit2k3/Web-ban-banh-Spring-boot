@@ -6,9 +6,7 @@ import com.tiembanhhoangtube.Repository.OrdertailRepository;
 import com.tiembanhhoangtube.Repository.ProductRepository;
 import com.tiembanhhoangtube.Service.AccountService;
 import com.tiembanhhoangtube.Service.ProductService;
-import com.tiembanhhoangtube.entity.*;
-import com.tiembanhhoangtube.model.cartitemDto;
-import com.tiembanhhoangtube.model.orderDto;
+
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

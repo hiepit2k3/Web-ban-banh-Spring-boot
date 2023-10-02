@@ -9,7 +9,6 @@ import com.tiembanhhoangtube.entity.Product;
 import com.tiembanhhoangtube.model.ProductDto;
 import com.tiembanhhoangtube.utisl.AuthenticationUtils;
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;

@@ -6,7 +6,6 @@ import com.tiembanhhoangtube.Service.AccountService;
 import com.tiembanhhoangtube.Service.StogareService;
 import com.tiembanhhoangtube.entity.Account;
 import com.tiembanhhoangtube.model.accountDto;
-import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -48,7 +47,7 @@ public class CustomerController {
     }
 
     @PostMapping("/AddOrEdit")
-    public ModelAndView saveOrUpdate(ModelMap model, @Valid @ModelAttribute("customer") accountDto dto, BindingResult result) {
+    public ModelAndView saveOrUpdate(ModelMap model,@ModelAttribute("customer") accountDto dto, BindingResult result) {
         System.out.println("data gửi về thêm vào add: "+dto);
         if (result.hasErrors()) {
             System.out.println("Loi: " + result.toString());

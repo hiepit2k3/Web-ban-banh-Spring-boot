@@ -7,7 +7,6 @@ import com.tiembanhhoangtube.Service.impl.AccountServiceimpl;
 import com.tiembanhhoangtube.entity.Account;
 import com.tiembanhhoangtube.model.accountDto;
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,7 +39,7 @@ public class RestfulLoginAPI {
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @PostMapping("/authentication/register")
-    public ResponseEntity<?> register(@Valid @RequestBody accountDto dto, BindingResult result) {
+    public ResponseEntity<?> register( @RequestBody accountDto dto, BindingResult result) {
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body("Invalid data format.");
         }
