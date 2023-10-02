@@ -5,6 +5,7 @@ import com.tiembanhhoangtube.config.JwtServicer;
 import com.tiembanhhoangtube.entity.Account;
 import com.tiembanhhoangtube.model.UserInfoUserDetails;
 import lombok.RequiredArgsConstructor;
+import lombok.var;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,13 +39,13 @@ public class AuthenticationService {
                 .build();
     }
 
-    public AuthenticationResponse authentication(AuthenticationResquest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(),request.getPassword()));
-        var user = accountRepository.findByUsername(request.getUsername()).orElseThrow();
-        UserInfoUserDetails acc = new UserInfoUserDetails(user);
-        var jwt = jwtServicer.generateToken(acc);
-        return AuthenticationResponse.builder()
-                .token(jwt)
-                .build();
-    }
+//    public AuthenticationResponse authentication(AuthenticationResquest request) {
+//        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(),request.getPassword()));
+//        var user = accountRepository.findByUsername(request.getUsername()).orElseThrow();
+//        UserInfoUserDetails acc = new UserInfoUserDetails(user);
+//        var jwt = jwtServicer.generateToken(acc);
+//        return AuthenticationResponse.builder()
+//                .token(jwt)
+//                .build();
+//    }
 }
